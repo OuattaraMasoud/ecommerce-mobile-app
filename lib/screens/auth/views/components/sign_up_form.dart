@@ -27,7 +27,6 @@ class SignUpForm extends StatelessWidget {
             onSaved: (lastName) {
               // Email
             },
-            validator: emaildValidator.call,
             controller: lastNameController,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
@@ -44,7 +43,6 @@ class SignUpForm extends StatelessWidget {
             onSaved: (firstName) {
               // Email
             },
-            validator: emaildValidator.call,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
             controller: firstNameController,

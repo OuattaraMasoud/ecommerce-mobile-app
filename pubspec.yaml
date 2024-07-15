@@ -55,6 +55,7 @@ dependencies:
   dio: ^5.5.0+1
   json_annotation: ^4.9.0
   json_serializable: ^6.8.0
+  flutter_platform_widgets: ^7.0.0
 
 dev_dependencies:
   flutter_test:
