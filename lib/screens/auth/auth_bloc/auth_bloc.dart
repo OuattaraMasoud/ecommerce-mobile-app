@@ -1,0 +1,75 @@
+import 'dart:convert';
+
+import 'package:bloc/bloc.dart';
+import 'package:e_commerce_project/common/commons.dart';
+import 'package:e_commerce_project/global_app/global_app.dart';
+import 'package:e_commerce_project/screens/auth/auth_models/user_model.dart';
+import 'package:e_commerce_project/screens/auth/repositories/repositories.dart';
+import 'package:e_commerce_project/services/locator.dart';
+import 'package:e_commerce_project/utils.dart';
+import 'package:equatable/equatable.dart';
+
+part 'auth_event.dart';
+part 'auth_state.dart';
+
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  AuthRepository authRepository = locator<AuthRepository>();
+  AuthBloc()
+      : super(
+          const AuthState(),
+        ) {
+    on<LoginEvent>(_onLoginUser);
+    on<RegisterEvent>(_onRegisterUser);
+    // on<InitializeAuthEvent>(_initializeAuth);
+
+    on<LogoutEvent>(_onlogout);
+  }
+
+  // Future<void> _initializeAuth(
+  //     InitializeAuthEvent event, Emitter<AuthState> emit) async {
+  //   var user = await authRepository.me(event.data);
+  //   if (user != null) {
+  //     emit(state.copyWith(user: () => user));
+  //   } else {
+  //     emit(state.copyWith(user: () => null));
+  //   }
+  // }
+
+  Future<void> _onLoginUser(LoginEvent event, Emitter<AuthState> emit) async {
+    try {
+      locator<GlobalAppCubit>().startLoading();
+      var response = await authRepository.loginUser(event.authData);
+      logger.d(response);
+      locator<GlobalAppCubit>().stopLoading();
+    } catch (e) {
+      logger.e(e);
+      locator<GlobalAppCubit>().stopLoading();
+    }
+  }
+
+  Future<void> _onRegisterUser(
+      RegisterEvent event, Emitter<AuthState> emit) async {
+    try {
+      locator<GlobalAppCubit>().startLoading();
+      var response = await authRepository.registerUser(event.userData);
+      logger.d(response);
+      locator<GlobalAppCubit>().stopLoading();
+    } catch (e) {
+      logger.e(e);
+      locator<GlobalAppCubit>().stopLoading();
+    }
+  }
+
+  Future<void> _onlogout(LogoutEvent event, Emitter<AuthState> emit) async {
+    try {
+      if (locator<LocalStorageService>().shoppyUserAuthData != null) {}
+      var response = await authRepository.logout(jsonDecode(
+          locator<LocalStorageService>().shoppyUserAuthData!)["access_token"]);
+      if (response) {
+        emit(state.copyWith(user: () => null));
+      }
+    } catch (e) {
+      logger.e(e);
+    }
+  }
+}
