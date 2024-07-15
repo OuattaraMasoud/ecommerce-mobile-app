@@ -12,6 +12,11 @@ class LoginEvent extends AuthEvent {
   const LoginEvent({required this.authData});
 }
 
+class GetCurrentUserEvent extends AuthEvent {
+  final String email;
+  const GetCurrentUserEvent({required this.email});
+}
+
 class RegisterEvent extends AuthEvent {
   final Map<String, dynamic> userData;
   const RegisterEvent({required this.userData});

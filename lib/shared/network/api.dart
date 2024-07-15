@@ -38,7 +38,7 @@ class ApiIntercetor {
             if (savedToken != null) {
               try {
                 Response<dynamic> response = await dio.post(
-                    "${locator<LocalStorageService>().apiBaseUrl}/auth/refresh-token",
+                    "${locator<LocalStorageService>().apiBaseUrl}auth/refresh-token",
                     data: {
                       'refreshToken': jsonDecode(savedToken)["refresh_token"]
                     });
@@ -54,7 +54,7 @@ class ApiIntercetor {
                 var retryResponse =
                     await dio.request(origin.path, options: options);
                 return handler.resolve(retryResponse);
-              } on DioError catch (err) {
+              } on DioException catch (err) {
                 // The refresh token does not exist on server side
                 if (err.response?.statusCode == 404) {
                   await locator<LocalStorageService>().logOut();
@@ -87,7 +87,7 @@ class ApiIntercetor {
           return handler.next(request);
         },
         onResponse: (response, handler) {
-          if (response.realUri.toString().contains('auth/login-with-otp')) {
+          if (response.realUri.toString().contains('auth/login')) {
             if (response.statusCode == 200 || response.statusCode == 201) {
               locator<LocalStorageService>().shoppyAuthData = response.data;
             }
