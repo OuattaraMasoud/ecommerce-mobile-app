@@ -21,11 +21,11 @@ class ProductAvailabilityTag extends StatelessWidget {
         ),
       ),
       child: Text(
-        isAvailable ? "Available in stock" : "Currently unavailable",
-        style: Theme.of(context)
-            .textTheme
-            .labelSmall!
-            .copyWith(color: Colors.white, fontWeight: FontWeight.w500),
+        isAvailable ? "Disponible en stock" : "Actuellement indisponible",
+        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
       ),
     );
   }

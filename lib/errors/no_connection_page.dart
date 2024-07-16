@@ -21,11 +21,11 @@ class NoConnectionPage extends StatelessWidget {
             left: 30,
             child: TextButton(
               style: ButtonStyle(
-                shape: MaterialStatePropertyAll(
+                shape: WidgetStatePropertyAll(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50)),
                 ),
-                foregroundColor: const MaterialStatePropertyAll(Colors.white),
+                foregroundColor: const WidgetStatePropertyAll(Colors.white),
               ),
               onPressed: () {
                 locator<NavigationService>().pop();

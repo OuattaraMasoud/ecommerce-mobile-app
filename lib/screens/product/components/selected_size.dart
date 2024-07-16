@@ -23,7 +23,7 @@ class SelectedSize extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Text(
-            "Select Size",
+            "Choisir la taille",
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),

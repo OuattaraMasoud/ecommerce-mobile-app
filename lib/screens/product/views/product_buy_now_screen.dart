@@ -114,7 +114,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(vertical: defaultPadding),
                   sliver: ProductListTile(
-                    title: "Size guide",
+                    title: "Guide pour les tailles",
                     svgSrc: "assets/icons/Sizeguid.svg",
                     isShowBottomBorder: true,
                     press: () {
@@ -135,12 +135,12 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                       children: [
                         const SizedBox(height: defaultPadding / 2),
                         Text(
-                          "Store pickup availability",
+                          "Disponibilité du retrait en magasin",
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         const SizedBox(height: defaultPadding / 2),
                         const Text(
-                            "Select a size to check store availability and In-Store pickup options.")
+                            "Sélectionnez une taille pour vérifier la disponibilité en magasin et les options de retrait en magasin.")
                       ],
                     ),
                   ),
@@ -148,7 +148,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(vertical: defaultPadding),
                   sliver: ProductListTile(
-                    title: "Check stores",
+                    title: "Vérifiez les magasins",
                     svgSrc: "assets/icons/Stores.svg",
                     isShowBottomBorder: true,
                     press: () {

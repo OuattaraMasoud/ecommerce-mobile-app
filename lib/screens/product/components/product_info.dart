@@ -49,12 +49,12 @@ class ProductInfo extends StatelessWidget {
                   "$rating ",
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                Text("($numOfReviews Reviews)")
+                Text("($numOfReviews Revues)")
               ],
             ),
             const SizedBox(height: defaultPadding),
             Text(
-              "Product info",
+              "Infos sur le produit",
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!

@@ -16,7 +16,7 @@ class PreferencesScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {},
-            child: const Text("Reset"),
+            child: const Text("Rénitialiser"),
           )
         ],
       ),
@@ -33,9 +33,9 @@ class PreferencesScreen extends StatelessWidget {
             ),
             const Divider(height: defaultPadding * 2),
             PreferencesListTile(
-              titleText: "Personalization",
+              titleText: "Personnalisation",
               subtitleTxt:
-                  "Personalisation cookies collect information about your use of this app in order to display contect and experience that are relevant to you.",
+                  "Les cookies de personnalisation collectent des informations sur votre utilisation de cette application afin d'afficher un contenu et une expérience qui vous intéressent.",
               isActive: false,
               press: () {},
             ),
@@ -43,15 +43,15 @@ class PreferencesScreen extends StatelessWidget {
             PreferencesListTile(
               titleText: "Marketing",
               subtitleTxt:
-                  "Maarketing cookies collec information about your use of this and other apps to enable display ads and other marketing that is more relevant to you.",
+                  "Les cookies de marketing collectent des informations sur votre utilisation de cette application et d'autres applications pour permettre l'affichage d'annonces et d'autres marketings plus pertinents pour vous.",
               isActive: false,
               press: () {},
             ),
             const Divider(height: defaultPadding * 2),
             PreferencesListTile(
-              titleText: "Social media cookies",
+              titleText: "Cookies de réseaux sociaux",
               subtitleTxt:
-                  "These cookies are set by a range of social media services that we have added to the site to enable you to share our content with your friends and networks.",
+                  "Ces cookies sont définis par une gamme de services de médias sociaux que nous avons ajoutés au site pour vous permettre de partager notre contenu avec vos amis et vos réseaux.",
               isActive: false,
               press: () {},
             ),

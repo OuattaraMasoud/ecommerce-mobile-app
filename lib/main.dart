@@ -15,7 +15,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'common/constant.dart';
 import 'errors/no_connection_page.dart';
 import 'global_app/global_app.dart';
-import 'home/views/views.dart';
 import 'loader_overlay.dart';
 import 'notification_service.dart';
 import 'screens/auth/repositories/repositories.dart';
@@ -30,17 +29,27 @@ Future<void> main() async {
 
   await setupLocator();
 
-  Bloc.observer = (kDebugMode ? SimpleBlocObserver() : null)!;
+  BlocOverrides.runZoned(
+    () {
+      // Use blocs...
+      if (kDebugMode) {
+        runZonedGuarded<Future<void>>(() async {
+          SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+              .then((value) => initializeDateFormatting('fr_FR')
+                  .then((_) => runApp(_buildApp())));
+        }, (error, stackTrace) {
+          logger.e('Uncaught error: $error, StackTrace: $stackTrace');
 
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  await initializeDateFormatting('fr_FR');
-
-  runZonedGuarded(() {
-    runApp(_buildApp());
-  }, (error, stackTrace) {
-    logger.e('Uncaught error: $error, StackTrace: $stackTrace');
-    locator<NavigationService>().replaceWith(NoConnectionPage.routeName);
-  });
+          locator<NavigationService>().replaceWith(NoConnectionPage.routeName);
+        });
+      } else {
+        SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+            .then((value) => initializeDateFormatting('fr_FR')
+                .then((_) => runApp(_buildApp())));
+      }
+    },
+    blocObserver: kDebugMode ? SimpleBlocObserver() : null,
+  );
 }
 
 Widget _buildApp() {
