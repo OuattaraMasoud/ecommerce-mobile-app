@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'app_root/views/views.dart';
 import 'errors/no_connection_page.dart';
-import 'home/views/views.dart';
 import 'screens/address/views/views.dart';
 import 'screens/bookmark/views/views.dart';
 import 'screens/checkout/views/views.dart';
@@ -27,11 +26,6 @@ import 'screens/wallet/views/views.dart';
 const appRootPage = AppRootPage();
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
-    case HomePage.routeName:
-      return _getPageRoute(
-          routeName: settings.name!,
-          viewToShow: const HomePage(),
-          useDefaultPageRoute: true);
     case LoginScreen.routeName:
       return _getPageRoute(
           routeName: settings.name!,

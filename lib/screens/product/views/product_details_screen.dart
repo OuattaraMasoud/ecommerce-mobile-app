@@ -75,13 +75,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               title: "Sleeveless Ruffle",
               isAvailable: true,
               description:
-                  "A cool gray cap in soft corduroy. Watch me.' By buying cotton products from Lindex, you’re supporting more responsibly...",
+                  "Un pull-over gris cool en velours côtelé doux. Regarde moi.' En achetant des produits en coton chez Lindex, vous soutenez de manière plus responsable...",
               rating: 4.4,
               numOfReviews: 126,
             ),
             ProductListTile(
               svgSrc: "assets/icons/Product.svg",
-              title: "Product Details",
+              title: "Détails du produit",
               press: () {
                 customModalBottomSheet(context,
                     height: MediaQuery.of(context).size.height * 0.92,
@@ -90,7 +90,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
             ProductListTile(
               svgSrc: "assets/icons/Delivery.svg",
-              title: "Shipping Information",
+              title: "Informations sur votre achat",
               press: () {
                 customModalBottomSheet(
                   context,
@@ -99,18 +99,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 );
               },
             ),
-            ProductListTile(
-              svgSrc: "assets/icons/Return.svg",
-              title: "Returns",
-              isShowBottomBorder: true,
-              press: () {
-                customModalBottomSheet(
-                  context,
-                  height: MediaQuery.of(context).size.height * 0.92,
-                  child: const ProductReturnsScreen(),
-                );
-              },
-            ),
+            // ProductListTile(
+            //   svgSrc: "assets/icons/Return.svg",
+            //   title: "Returns",
+            //   isShowBottomBorder: true,
+            //   press: () {
+            //     customModalBottomSheet(
+            //       context,
+            //       height: MediaQuery.of(context).size.height * 0.92,
+            //       child: const ProductReturnsScreen(),
+            //     );
+            //   },
+            // ),
             const SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.all(defaultPadding),
@@ -127,18 +127,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
             ProductListTile(
               svgSrc: "assets/icons/Chat.svg",
-              title: "Reviews",
+              title: "Revues",
               isShowBottomBorder: true,
               press: () {
-                locator<NavigationService>()
-                    .navigateTo(ProductReviewsScreen.routeName);
+                // locator<NavigationService>()
+                //     .navigateTo(ProductReviewsScreen.routeName);
               },
             ),
             SliverPadding(
               padding: const EdgeInsets.all(defaultPadding),
               sliver: SliverToBoxAdapter(
                 child: Text(
-                  "You may also like",
+                  "Recommandations",
                   style: Theme.of(context).textTheme.titleSmall!,
                 ),
               ),

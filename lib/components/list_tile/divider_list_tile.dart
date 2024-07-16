@@ -38,7 +38,7 @@ class DividerListTile extends StatelessWidget {
   }
 }
 
-class DividerListTileWithTrilingText extends StatelessWidget {
+class DividerListTileWithTrilingText extends StatefulWidget {
   const DividerListTileWithTrilingText({
     super.key,
     required this.svgSrc,
@@ -46,42 +46,60 @@ class DividerListTileWithTrilingText extends StatelessWidget {
     required this.trilingText,
     required this.press,
     this.isShowArrow = true,
+    this.trailingWidget,
   });
 
   final String svgSrc, title, trilingText;
+  final Widget? trailingWidget;
   final VoidCallback press;
   final bool isShowArrow;
 
   @override
+  State<DividerListTileWithTrilingText> createState() =>
+      _DividerListTileWithTrilingTextState();
+}
+
+class _DividerListTileWithTrilingTextState
+    extends State<DividerListTileWithTrilingText> {
+  @override
   Widget build(BuildContext context) {
+    bool value = true;
     return Column(
       children: [
         ListTile(
-          onTap: press,
+          onTap: widget.press,
           minLeadingWidth: 24,
           leading: SvgPicture.asset(
-            svgSrc,
+            widget.svgSrc,
             height: 24,
             width: 24,
           ),
           title: Text(
-            title,
+            widget.title,
             style: const TextStyle(fontSize: 14, height: 1),
           ),
           trailing: SizedBox(
-            width: 50,
+            width: 100,
             child: Row(
               children: [
                 const Spacer(),
-                Text(trilingText),
-                SvgPicture.asset(
-                  "assets/icons/miniRight.svg",
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(widget.trilingText),
                 ),
+                widget.trailingWidget != null
+                    ? widget.trailingWidget!
+                    : const SizedBox(),
+                widget.trailingWidget == null
+                    ? SvgPicture.asset(
+                        "assets/icons/miniRight.svg",
+                      )
+                    : const SizedBox(),
               ],
             ),
           ),
         ),
-        if (isShowArrow) const Divider(height: 1),
+        if (widget.isShowArrow) const Divider(height: 1),
       ],
     );
   }

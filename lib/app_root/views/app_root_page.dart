@@ -1,7 +1,5 @@
-import 'package:e_commerce_project/home/views/views.dart';
 import 'package:e_commerce_project/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRootPage extends StatefulWidget {
   static const String routeName = "AppRootView";
@@ -25,10 +23,7 @@ class _AppRootPageState extends State<AppRootPage> with WidgetsBindingObserver {
   }
 
   void _initHomePages(BuildContext context) {
-    _homePages = [
-      const HomePage(),
-      const HomePage(),
-    ];
+    _homePages = [];
   }
 
   @override
