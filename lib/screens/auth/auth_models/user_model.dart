@@ -10,6 +10,7 @@ class UserModel {
   String? lastName;
   String? email;
   String? password;
+  List<String>? role;
 
   UserModel({
     this.id,
@@ -17,6 +18,7 @@ class UserModel {
     this.lastName,
     this.email,
     this.password,
+    this.role,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

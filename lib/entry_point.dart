@@ -111,7 +111,7 @@ class _EntryPointState extends State<EntryPoint> {
           selectedItemColor: primaryColor,
           unselectedItemColor: Colors.transparent,
           items: [
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.shopify_sharp),
               activeIcon: Icon(
                 Icons.shopify_sharp,
@@ -130,14 +130,14 @@ class _EntryPointState extends State<EntryPoint> {
                   svgIcon("assets/icons/Bookmark.svg", color: primaryColor),
               label: "Bookmark",
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.shopping_bag_outlined),
               activeIcon: Icon(
                 Icons.shopping_bag_outlined,
               ),
               label: "Panier",
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_outlined),
               activeIcon: Icon(
                 Icons.account_circle_outlined,

@@ -1,8 +1,5 @@
 import 'package:e_commerce_project/constants.dart';
 import 'package:e_commerce_project/screens/home/views/components/categories.dart';
-import 'package:e_commerce_project/screens/discover/views/components/expansion_category.dart';
-import 'package:e_commerce_project/screens/notification/view/views.dart';
-import 'package:e_commerce_project/screens/search/views/views.dart';
 import 'package:e_commerce_project/screens/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -94,7 +91,7 @@ class _MensScreenState extends State<MensScreen> {
                 ],
               ),
             ),
-            ItemsListWidget(),
+            const ItemsListWidget(),
           ],
         ),
       ),

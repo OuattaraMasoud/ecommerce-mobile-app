@@ -1,4 +1,7 @@
 import 'package:e_commerce_project/entry_point.dart';
+import 'package:e_commerce_project/screens/admin/products/views.dart';
+import 'package:e_commerce_project/screens/admin/products/views/product_list_page.dart';
+import 'package:e_commerce_project/screens/admin/views/views.dart';
 import 'package:e_commerce_project/screens/auth/views/views.dart';
 import 'package:e_commerce_project/screens/mens/views/views.dart';
 import 'package:e_commerce_project/screens/product/views/view.dart';
@@ -179,11 +182,28 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           routeName: settings.name!,
           viewToShow: const EntryPoint(),
           useDefaultPageRoute: true);
+    case AdminHomePage.routeName:
+      return _getPageRoute(
+          routeName: settings.name!,
+          viewToShow: const AdminHomePage(),
+          useDefaultPageRoute: true);
 
     case NoConnectionPage.routeName:
       return _getPageRoute(
         routeName: settings.name!,
         viewToShow: const NoConnectionPage(),
+        useDefaultPageRoute: true,
+      );
+    case AddNewProductPage.routeName:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const AddNewProductPage(),
+        useDefaultPageRoute: true,
+      );
+    case ProductListPage.routeName:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const ProductListPage(),
         useDefaultPageRoute: true,
       );
 

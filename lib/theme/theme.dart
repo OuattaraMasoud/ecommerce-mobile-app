@@ -141,7 +141,7 @@ ThemeData darkTheme() {
     ),
     appBarTheme: lightAppBarTheme().copyWith(
       color: Colors.white70, // const Color(0XFF212121), // Colors.black87,
-      iconTheme: IconThemeData(color: blackColor),
+      iconTheme: const IconThemeData(color: blackColor),
     ),
     dialogTheme: const DialogTheme().copyWith(
       backgroundColor: Colors.grey[850],

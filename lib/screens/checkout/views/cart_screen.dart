@@ -1,4 +1,3 @@
-import 'package:e_commerce_project/components/components.dart';
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatelessWidget {

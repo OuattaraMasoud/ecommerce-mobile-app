@@ -10,7 +10,7 @@ class BannerMSkelton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
+    return const AspectRatio(
       aspectRatio: 2.56,
       child: Stack(
         children: [

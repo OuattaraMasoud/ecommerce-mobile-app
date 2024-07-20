@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
+import 'package:e_commerce_project/firebase_options.dart';
 import 'package:e_commerce_project/router.dart';
+import 'package:e_commerce_project/screens/admin/repositories/product_repository.dart';
 import 'package:e_commerce_project/screens/auth/auth_bloc/auth_bloc.dart';
 import 'package:e_commerce_project/screens/onbording/views/views.dart';
 import 'package:e_commerce_project/simple_bloc_observer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 import 'common/constant.dart';
 import 'errors/no_connection_page.dart';
@@ -26,30 +27,33 @@ import 'utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  if (Platform.isAndroid) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } else if (Platform.isIOS) {
+    await Firebase.initializeApp();
+  }
   await setupLocator();
 
-  BlocOverrides.runZoned(
-    () {
-      // Use blocs...
-      if (kDebugMode) {
-        runZonedGuarded<Future<void>>(() async {
-          SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-              .then((value) => initializeDateFormatting('fr_FR')
-                  .then((_) => runApp(_buildApp())));
-        }, (error, stackTrace) {
-          logger.e('Uncaught error: $error, StackTrace: $stackTrace');
-
-          locator<NavigationService>().replaceWith(NoConnectionPage.routeName);
-        });
-      } else {
+  if (kDebugMode) {
+    Zone.root.runGuarded(() async {
+      try {
         SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-            .then((value) => initializeDateFormatting('fr_FR')
-                .then((_) => runApp(_buildApp())));
+            .then((value) => runApp(_buildApp()));
+      } catch (error, stackTrace) {
+        logger.e('Uncaught error: $error, StackTrace: $stackTrace');
+        locator<NavigationService>().replaceWith(NoConnectionPage.routeName);
       }
-    },
-    blocObserver: kDebugMode ? SimpleBlocObserver() : null,
-  );
+    });
+    Bloc.observer = SimpleBlocObserver();
+  } else {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
+      (value) => runApp(
+        _buildApp(),
+      ),
+    );
+  }
 }
 
 Widget _buildApp() {
@@ -60,10 +64,10 @@ class EcommerceApp extends StatefulWidget {
   const EcommerceApp({Key? key}) : super(key: key);
 
   @override
-  State<EcommerceApp> createState() => _FasoLotoAppState();
+  State<EcommerceApp> createState() => _EcommerceState();
 }
 
-class _FasoLotoAppState extends State<EcommerceApp> {
+class _EcommerceState extends State<EcommerceApp> {
   late final String? token;
 
   @override
@@ -79,6 +83,9 @@ class _FasoLotoAppState extends State<EcommerceApp> {
         providers: [
           RepositoryProvider<AuthRepository>(
             create: (context) => locator<AuthRepository>(),
+          ),
+          RepositoryProvider<ProductRepository>(
+            create: (context) => locator<ProductRepository>(),
           ),
         ],
         child: MultiBlocProvider(

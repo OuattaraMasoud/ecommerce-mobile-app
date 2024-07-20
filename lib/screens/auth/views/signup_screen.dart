@@ -37,7 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               fit: BoxFit.cover,
             ),
             Padding(
-              padding: EdgeInsets.all(defaultPadding),
+              padding: const EdgeInsets.all(defaultPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

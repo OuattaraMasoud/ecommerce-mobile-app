@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +15,7 @@ class LocalStorageService {
 
   static const String shoppyUserAuthDataKey = 'shoppyUserAuthData';
   static const String apiBaseUrlKey = 'apiBaseUrl';
-  static const String fasoLotoApiKey = 'fasoLotoApiKey';
+  static const String shoppyApiKey = 'shoppyApiKey';
 
   static const String showOnboardingPagesKey = 'showOnboardingPages';
   static const String privacyPolicyUrlKey = 'privacyPolicyUrl';
@@ -33,7 +31,7 @@ class LocalStorageService {
     return _instance!;
   }
 
-  String get apiBaseUrl => 'http://192.168.0.184:3001/';
+  String get apiBaseUrl => 'http://192.168.0.184:3000/';
 
   // Initial/First launch setup done
   bool get firstLaunchSetupDone =>

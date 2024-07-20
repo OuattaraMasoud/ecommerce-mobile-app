@@ -1,4 +1,5 @@
 import 'package:e_commerce_project/global_app/global_app.dart';
+import 'package:e_commerce_project/screens/admin/repositories/product_repository.dart';
 import 'package:e_commerce_project/shared/network/api.dart';
 import 'package:get_it/get_it.dart';
 
@@ -14,6 +15,7 @@ Future<void> setupLocator() async {
   locator.registerSingleton<ApiIntercetor>(apiInterceptor);
 
   locator.registerSingleton<AuthRepository>(AuthRepository());
+  locator.registerSingleton<ProductRepository>(ProductRepository());
   locator.registerLazySingleton(() => NavigationService());
 
   locator.registerSingleton<GlobalAppCubit>(GlobalAppCubit());

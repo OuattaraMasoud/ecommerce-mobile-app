@@ -6,6 +6,7 @@ import 'package:e_commerce_project/screens/order/views/views.dart';
 import 'package:e_commerce_project/screens/preferences/views/views.dart';
 import 'package:e_commerce_project/screens/user_info/views/user_info_screen.dart';
 import 'package:e_commerce_project/screens/wallet/views/views.dart';
+import 'package:e_commerce_project/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -25,6 +26,8 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool value = true;
+  bool isLightTheme = true;
+  String appearenceTralingText = 'Claire';
   String notificationTrailingText = 'On';
   @override
   Widget build(BuildContext context) {
@@ -42,8 +45,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       imageSrc:
                           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
                       press: () {
-                        locator<NavigationService>()
-                            .navigateTo(UserInfoScreen.routeName);
+                        // locator<NavigationService>()
+                        //     .navigateTo(UserInfoScreen.routeName);
                       },
                     ),
                     Divider(
@@ -102,6 +105,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ),
+                    DividerListTileWithTrilingText(
+                      svgSrc: "assets/icons/Notification.svg",
+                      title: "Apparence",
+                      trilingText: appearenceTralingText,
+                      trailingWidget: Switch.adaptive(
+                        value: isLightTheme,
+                        onChanged: (newValue) => setState(() {
+                          // isLightTheme = newValue;
+                          // if (isLightTheme == true) {
+                          //   locator<LocalStorageService>().themeMode =
+                          //       ThemeMode.light;
+                          //   context
+                          //       .read<ThemeCubit>()
+                          //       .onChangeTheme(ThemeMode.light);
+                          //   appearenceTralingText = "Clair";
+                          // } else {
+                          //   locator<LocalStorageService>().themeMode =
+                          //       ThemeMode.dark;
+                          //   BlocProvider.of<ThemeCubit>(context)
+                          //       .onChangeTheme(ThemeMode.dark);
+                          //   appearenceTralingText = "Sombre";
+                          // }
+                        }),
+                      ),
+                      press: () {
+                        locator<NavigationService>()
+                            .navigateTo(EnableNotificationScreen.routeName);
+                      },
+                    ),
+
                     DividerListTileWithTrilingText(
                       svgSrc: "assets/icons/Notification.svg",
                       title: "Notifications",
@@ -220,7 +253,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     )
                   ],
                 )
-              : SizedBox();
+              : const SizedBox();
         },
       ),
     );

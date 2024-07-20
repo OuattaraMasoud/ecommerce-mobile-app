@@ -28,7 +28,7 @@ class ExpansionCategory extends StatelessWidget {
               height: 24,
               width: 24,
             )
-          : SizedBox(),
+          : const SizedBox(),
       title: Text(
         title,
         style: const TextStyle(fontSize: 14),

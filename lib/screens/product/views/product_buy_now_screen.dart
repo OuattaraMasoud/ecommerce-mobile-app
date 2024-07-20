@@ -1,6 +1,5 @@
 import 'package:e_commerce_project/components/components.dart';
 import 'package:e_commerce_project/screens/product/components/product_list_tile.dart';
-import 'package:e_commerce_project/screens/product/views/added_to_cart_message_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

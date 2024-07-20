@@ -79,7 +79,7 @@ class _DividerListTileWithTrilingTextState
             style: const TextStyle(fontSize: 14, height: 1),
           ),
           trailing: SizedBox(
-            width: 100,
+            width: 120,
             child: Row(
               children: [
                 const Spacer(),

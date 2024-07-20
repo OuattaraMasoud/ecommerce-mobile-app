@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:e_commerce_project/entry_point.dart';
+import 'package:e_commerce_project/global_app/cubit/global_app_cubit.dart';
 import 'package:e_commerce_project/notification_service.dart';
 import 'package:e_commerce_project/screens/auth/auth_models/user_model.dart';
 import 'package:e_commerce_project/screens/auth/views/views.dart';
 import 'package:e_commerce_project/services/services.dart';
 import 'package:e_commerce_project/shared/network/api.dart';
 import 'package:e_commerce_project/utils.dart';
+import 'package:flutter/material.dart';
 
 class AuthRepository {
   final api = locator.get<ApiIntercetor>();
@@ -47,10 +48,15 @@ class AuthRepository {
       return response.statusCode;
     } on DioException catch (e) {
       logger.e(e);
+      NotificationService.notify("${jsonDecode(e.response?.data)['message']}",
+          textStyle: TextStyle(color: Colors.red));
+
       throw Exception('Login failed: ${e.message}');
     } catch (e) {
       logger.e(e);
       throw Exception('An unexpected error occurred: ${e.toString()}');
+    } finally {
+      locator<GlobalAppCubit>().stopLoading();
     }
   }
 
