@@ -39,9 +39,7 @@ class ApiIntercetor {
               try {
                 Response<dynamic> response = await dio.post(
                     "${locator<LocalStorageService>().apiBaseUrl}auth/refresh-token",
-                    data: {
-                      'refreshToken': jsonDecode(savedToken)["refresh_token"]
-                    });
+                    data: {'refreshToken': savedToken["refresh_token"]});
                 locator<LocalStorageService>().shoppyAuthData = response.data;
                 var token =
                     response.data != null ? jsonDecode(response.data) : null;

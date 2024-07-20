@@ -68,6 +68,16 @@ final passwordValidator = MultiValidator([
   //     errorText: 'passwords must have at least one special character')
 ]);
 
+final productNameValidator = MultiValidator([
+  RequiredValidator(errorText: 'Email is required'),
+]);
+final productPriceValidator = MultiValidator([
+  RequiredValidator(errorText: 'Email is required'),
+]);
+final productDescriptionValidator = MultiValidator([
+  RequiredValidator(errorText: 'Email is required'),
+]);
+
 final emaildValidator = MultiValidator([
   RequiredValidator(errorText: 'Email is required'),
   EmailValidator(errorText: "Enter a valid email address"),

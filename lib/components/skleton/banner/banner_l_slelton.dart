@@ -10,16 +10,16 @@ class BannerLSkelton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
+    return const AspectRatio(
       aspectRatio: 1.1,
       child: Stack(
         children: [
-          const Skeleton(),
+          Skeleton(),
           Padding(
-            padding: const EdgeInsets.all(defaultPadding),
+            padding: EdgeInsets.all(defaultPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Spacer(),
                 Skeleton(
                   width: 160,

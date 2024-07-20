@@ -41,3 +41,23 @@ class CustomInterceptors extends Interceptor {
     return super.onError(err, handler);
   }
 }
+
+void initializeDioClient() {
+  Dio dioClient = Dio(
+    BaseOptions(
+      baseUrl: locator<LocalStorageService>().apiBaseUrl,
+      responseType: ResponseType.plain,
+      connectTimeout: const Duration(milliseconds: 30000),
+      receiveTimeout: const Duration(milliseconds: 30000),
+      contentType: 'application/json',
+    ),
+  );
+
+  dioClient.interceptors.add(InterceptorsWrapper(
+    onRequest: (request, handler) {
+      String? token = locator<LocalStorageService>().shoppyUserAuthData;
+      request.headers['Authorization'] = "Bearer $token";
+      return handler.next(request);
+    },
+  ));
+}

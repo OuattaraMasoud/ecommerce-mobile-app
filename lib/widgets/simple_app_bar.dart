@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:e_commerce_project/utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../services/services.dart';
 
@@ -160,7 +156,7 @@ simpleAppBar(
 //                         ),
 //                       ),
 //                       Text(
-//                         'Noter l\'application Faso Loto',
+//                         'Noter l\'application Shoppy',
 //                         style: TextStyle(fontSize: 16.sp),
 //                       ),
 //                     ],
@@ -197,7 +193,7 @@ simpleAppBar(
 //                           child: Column(
 //                             children: <Widget>[
 //                               Text(
-//                                 'Faso Loto est une application mise à la disposition de la population Burkinabè par la Loterie Nationale du Burkina.',
+//                                 'Shoppy est une application mise à la disposition de la population Burkinabè par la Loterie Nationale du Burkina.',
 //                                 style: Theme.of(_).textTheme.bodyLarge,
 //                               ),
 //                               SizedBox(
@@ -255,7 +251,7 @@ simpleAppBar(
 //                         ),
 //                       ),
 //                       Text(
-//                         'A propos de Faso Loto ...',
+//                         'A propos de Shoppy ...',
 //                         style: TextStyle(fontSize: 16.sp),
 //                       ),
 //                     ],
@@ -269,7 +265,7 @@ simpleAppBar(
 //                       builder: (_) => PlatformAlertDialog(
 //                         title: const Text('Confirmation'),
 //                         content: const Text(
-//                             'Voulez vous vraiment vous déconnecter de Faso Loto ?'),
+//                             'Voulez vous vraiment vous déconnecter de Shoppy ?'),
 //                         actions: <Widget>[
 //                           PlatformDialogAction(
 //                             onPressed: () => Navigator.of(context).pop(false),
@@ -380,7 +376,7 @@ simpleAppBar(
 //                   ),
 //                 ),
 //                 Text(
-//                   'Noter l\'application Faso Loto',
+//                   'Noter l\'application Shoppy',
 //                   style: TextStyle(fontSize: 16.sp),
 //                 ),
 //               ],
@@ -412,7 +408,7 @@ simpleAppBar(
 //                     child: Column(
 //                       children: <Widget>[
 //                         Text(
-//                           'Faso Loto est une application mise à la disposition de la population Burkinabè par la Loterie Nationale du Burkina.',
+//                           'Shoppy est une application mise à la disposition de la population Burkinabè par la Loterie Nationale du Burkina.',
 //                           style: Theme.of(_).textTheme.bodyLarge,
 //                         ),
 //                         SizedBox(
@@ -466,7 +462,7 @@ simpleAppBar(
 //                   ),
 //                 ),
 //                 Text(
-//                   'A propos de Faso Loto ...',
+//                   'A propos de Shoppy ...',
 //                   style: TextStyle(fontSize: 16.sp),
 //                 ),
 //               ],
@@ -480,7 +476,7 @@ simpleAppBar(
 //                 builder: (_) => PlatformAlertDialog(
 //                   title: const Text('Confirmation'),
 //                   content: const Text(
-//                       'Voulez vous vraiment vous déconnecter de Faso Loto ?'),
+//                       'Voulez vous vraiment vous déconnecter de Shoppy ?'),
 //                   actions: <Widget>[
 //                     PlatformDialogAction(
 //                       onPressed: () => Navigator.of(context).pop(false),

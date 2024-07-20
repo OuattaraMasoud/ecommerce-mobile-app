@@ -17,7 +17,7 @@ AppBarTheme appBarDarkTheme = AppBarTheme(
   backgroundColor: blackColor,
   elevation: 0,
   iconTheme: IconThemeData(color: Colors.grey.shade800),
-  titleTextStyle: TextStyle(
+  titleTextStyle: const TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: Colors.white,
@@ -25,12 +25,12 @@ AppBarTheme appBarDarkTheme = AppBarTheme(
 );
 
 ScrollbarThemeData scrollbarThemeData = ScrollbarThemeData(
-  trackColor: MaterialStateProperty.all(primaryColor),
+  trackColor: WidgetStateProperty.all(primaryColor),
 );
 
 DataTableThemeData dataTableLightThemeData = DataTableThemeData(
   columnSpacing: 24,
-  headingRowColor: MaterialStateProperty.all(Colors.black12),
+  headingRowColor: WidgetStateProperty.all(Colors.black12),
   decoration: BoxDecoration(
     borderRadius: const BorderRadius.all(Radius.circular(defaultBorderRadious)),
     border: Border.all(color: Colors.black12),
@@ -44,7 +44,7 @@ DataTableThemeData dataTableLightThemeData = DataTableThemeData(
 
 DataTableThemeData dataTableDarkThemeData = DataTableThemeData(
   columnSpacing: 24,
-  headingRowColor: MaterialStateProperty.all(Colors.white10),
+  headingRowColor: WidgetStateProperty.all(Colors.white10),
   decoration: BoxDecoration(
     borderRadius: const BorderRadius.all(Radius.circular(defaultBorderRadious)),
     border: Border.all(color: Colors.white10),

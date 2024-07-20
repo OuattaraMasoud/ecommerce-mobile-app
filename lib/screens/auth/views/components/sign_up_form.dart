@@ -30,10 +30,10 @@ class SignUpForm extends StatelessWidget {
             controller: lastNameController,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Nom",
               prefixIcon: Padding(
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                       vertical: defaultPadding * 0.75),
                   child: Icon(Icons.info_outlined)),
             ),
@@ -46,10 +46,10 @@ class SignUpForm extends StatelessWidget {
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
             controller: firstNameController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Prénom",
               prefixIcon: Padding(
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                       vertical: defaultPadding * 0.75),
                   child: Icon(Icons.info_outlined)),
             ),
@@ -63,10 +63,10 @@ class SignUpForm extends StatelessWidget {
             controller: emailController,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Adresse Email",
               prefixIcon: Padding(
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                       vertical: defaultPadding * 0.75),
                   child: Icon(Icons.mail_outline_rounded)),
             ),
@@ -79,10 +79,10 @@ class SignUpForm extends StatelessWidget {
             validator: passwordValidator.call,
             controller: passwordController,
             obscureText: true,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Mot de passe",
               prefixIcon: Padding(
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                       vertical: defaultPadding * 0.75),
                   child: Icon(Icons.lock_outline)),
             ),

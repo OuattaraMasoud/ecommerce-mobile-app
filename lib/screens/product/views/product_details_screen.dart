@@ -1,17 +1,13 @@
 import 'package:e_commerce_project/components/components.dart';
 import 'package:e_commerce_project/components/product/product_card.dart';
 import 'package:e_commerce_project/constants.dart';
-import 'package:e_commerce_project/screens/product/views/product_returns_screen.dart';
-import 'package:e_commerce_project/screens/reviews/view/product_reviews_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../services/services.dart';
 import '../components/notify_me_card.dart';
 import '../components/product_images.dart';
 import '../components/product_info.dart';
 import '../components/product_list_tile.dart';
-import '../../../components/review_card.dart';
 import 'product_buy_now_screen.dart';
 
 class ProductDetailsScreenArgument {
@@ -67,10 +63,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ],
             ),
-            ProductImages(
+            const ProductImages(
               images: [productDemoImg1, productDemoImg2, productDemoImg3],
             ),
-            ProductInfo(
+            const ProductInfo(
               brand: "LIPSY LONDON",
               title: "Sleeveless Ruffle",
               isAvailable: true,

@@ -45,6 +45,10 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Nous avons besoin d'accéder à votre gallerie pour changer votre photo de profile.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Nous avons besoin d'accéder à la caméra pour scanner les QR codes lors des paiements.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 </dict>

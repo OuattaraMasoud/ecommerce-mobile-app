@@ -22,7 +22,7 @@ class BannerSSkelton extends StatelessWidget {
             padding: const EdgeInsets.all(defaultPadding),
             child: Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,

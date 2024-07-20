@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:e_commerce_project/common/commons.dart';
 import 'package:e_commerce_project/entry_point.dart';
 import 'package:e_commerce_project/global_app/global_app.dart';
+import 'package:e_commerce_project/screens/admin/views/views.dart';
 import 'package:e_commerce_project/screens/auth/auth_models/user_model.dart';
 import 'package:e_commerce_project/screens/auth/repositories/repositories.dart';
-import 'package:e_commerce_project/services/locator.dart';
 import 'package:e_commerce_project/utils.dart';
 import 'package:equatable/equatable.dart';
 
@@ -44,8 +44,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         UserModel? userData = await authRepository.me(event.authData["email"]);
         if (userData != null) {
           emit(state.copyWith(user: () => userData));
-          locator<NavigationService>()
-              .pushNamedAndRemoveUntil(EntryPoint.routeName);
+          if (userData.role!.contains('ADMIN')) {
+            locator<NavigationService>()
+                .pushNamedAndRemoveUntil(AdminHomePage.routeName);
+          } else {
+            locator<NavigationService>()
+                .pushNamedAndRemoveUntil(EntryPoint.routeName);
+          }
         }
       }
       logger.d(response);

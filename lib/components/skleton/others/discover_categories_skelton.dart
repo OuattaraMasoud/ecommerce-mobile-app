@@ -24,7 +24,7 @@ class DiscoverCategorySkelton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return const Padding(
       padding: EdgeInsets.symmetric(
           horizontal: defaultPadding, vertical: defaultPadding * 0.75),
       child: Row(
