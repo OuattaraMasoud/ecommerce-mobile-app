@@ -1,6 +1,7 @@
 import 'package:e_commerce_project/entry_point.dart';
 import 'package:e_commerce_project/screens/admin/products/views.dart';
 import 'package:e_commerce_project/screens/admin/products/views/product_list_page.dart';
+import 'package:e_commerce_project/screens/admin/subcategories/views/add_new_subCategory_page.dart';
 import 'package:e_commerce_project/screens/admin/views/views.dart';
 import 'package:e_commerce_project/screens/auth/views/views.dart';
 import 'package:e_commerce_project/screens/mens/views/views.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'app_root/views/views.dart';
 import 'errors/no_connection_page.dart';
 import 'screens/address/views/views.dart';
+import 'screens/admin/categories/views/admin_add_category.dart';
 import 'screens/bookmark/views/views.dart';
 import 'screens/checkout/views/views.dart';
 import 'screens/discover/views/views.dart';
@@ -204,6 +206,18 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name!,
         viewToShow: const ProductListPage(),
+        useDefaultPageRoute: true,
+      );
+    case AdminAddNewCategoryPage.routeName:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const AdminAddNewCategoryPage(),
+        useDefaultPageRoute: true,
+      );
+    case AddNewSubCategoryPage.routeName:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const AddNewSubCategoryPage(),
         useDefaultPageRoute: true,
       );
 

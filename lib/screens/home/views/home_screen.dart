@@ -48,7 +48,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SliverToBoxAdapter(child: BestSellers()),
-            const SliverToBoxAdapter(child: MostPopular()),
+            //const SliverToBoxAdapter(child: MostPopular()),
             SliverToBoxAdapter(
               child: Column(
                 children: [
@@ -70,7 +70,6 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SliverToBoxAdapter(child: BestSellers()),
           ],
         ),
       ),

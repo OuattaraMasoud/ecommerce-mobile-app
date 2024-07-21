@@ -1,7 +1,9 @@
 import 'package:e_commerce_project/common/commons.dart';
 import 'package:e_commerce_project/common/constant.dart';
 import 'package:e_commerce_project/constants.dart';
+import 'package:e_commerce_project/screens/admin/categories/views/admin_add_category.dart';
 import 'package:e_commerce_project/screens/admin/products/views.dart';
+import 'package:e_commerce_project/screens/admin/subcategories/views/add_new_subCategory_page.dart';
 import 'package:e_commerce_project/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -198,7 +200,10 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     ],
                   ),
                 ),
-                onTap: () async {},
+                onTap: () async {
+                  locator<NavigationService>()
+                      .navigateTo(AdminAddNewCategoryPage.routeName);
+                },
               ),
               InkWell(
                 child: Container(
@@ -272,7 +277,10 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     ],
                   ),
                 ),
-                onTap: () async {},
+                onTap: () async {
+                  locator<NavigationService>()
+                      .navigateTo(AddNewSubCategoryPage.routeName);
+                },
               ),
             ],
           ),

@@ -6,14 +6,12 @@ part 'subcategory_model.g.dart';
 class SubCategoryModel {
   String? id;
   String name;
-  String categoryId;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String createdAt;
+  String updatedAt;
 
   SubCategoryModel({
     this.id,
     required this.name,
-    required this.categoryId,
     required this.createdAt,
     required this.updatedAt,
   });

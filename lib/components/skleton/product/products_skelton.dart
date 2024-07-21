@@ -10,20 +10,19 @@ class ProductsSkelton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 220,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (context, index) => Padding(
-          padding: EdgeInsets.only(
-            left: defaultPadding,
-            right: index == 4 ? defaultPadding : 0,
-          ),
-          child: const ProductCardSkelton(),
-        ),
+    return SliverGrid(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.7,
+        mainAxisSpacing: defaultPadding,
+        crossAxisSpacing: defaultPadding,
+      ),
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return ProductCardSkelton();
+        },
+        childCount: 6,
       ),
     );
   }
 }
-
