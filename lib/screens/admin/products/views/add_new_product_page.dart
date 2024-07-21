@@ -1,9 +1,11 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:e_commerce_project/constants.dart';
 import 'package:e_commerce_project/global_app/cubit/global_app_cubit.dart';
+import 'package:e_commerce_project/screens/admin/categories/model/category_model.dart';
 import 'package:e_commerce_project/screens/admin/products/file_picker_blocs/file_picker_bloc.dart';
 import 'package:e_commerce_project/screens/admin/products/widgets/image_form_field_widget.dart';
 import 'package:e_commerce_project/screens/admin/repositories/product_repository.dart';
+import 'package:e_commerce_project/screens/admin/subcategories/model/subcategory_model.dart';
 import 'package:e_commerce_project/services/services.dart';
 import 'package:e_commerce_project/theme/theme.dart';
 import 'package:e_commerce_project/utils.dart';
@@ -28,7 +30,18 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   TextEditingController productDescriptionController = TextEditingController();
   TextEditingController productPriceController = TextEditingController();
   List<Widget> imageFormFields = [];
+  List<CategoryModel> _categories = [];
+  String selectedSubCategoryName = "";
+  String selectedCategoryName = "";
+  String selectedCategoryID = "";
+  String selectedSubCategoryID = "";
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    _initOperationItems();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -92,8 +105,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               border: Border.all(
-                                                color: Color(0xFF7B61FF),
-                                              ),
+                                                  color: Color(0xFF7B61FF)),
                                             ),
                                             elevation: 1,
                                           ),
@@ -123,67 +135,57 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                                 .bodySmall!
                                                 .color,
                                           ),
-                                          value: 'Simple',
-                                          onChanged: (value) {},
-                                          items: [
-                                            const DropdownMenuItem(
-                                              value:
-                                                  'Simple', // Ensure this value matches DropdownButton2's value
-                                              child: const Text(
-                                                'Simple', // Display text for the menu item
-                                                style: TextStyle(
-                                                    color: Colors
-                                                        .black), // Adjust text style as needed
-                                              ),
-                                            ),
-                                            const DropdownMenuItem(
-                                              value:
-                                                  'Other', // Example of another item
+                                          value: selectedCategoryID,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedCategoryID = value ?? "";
+                                              selectedSubCategoryID =
+                                                  ""; // Réinitialisez la sous-catégorie sélectionnée lorsque la catégorie change
+                                            });
+                                          },
+                                          items: _categories.map((category) {
+                                            return DropdownMenuItem(
+                                              value: category
+                                                  .id, // Utilisez l'id comme valeur
                                               child: Text(
-                                                'Other', // Display text for the other menu item
+                                                category.name,
                                                 style: TextStyle(
-                                                    color: Colors
-                                                        .black), // Adjust text style as needed
+                                                    color: Colors.black),
                                               ),
-                                            ),
-                                          ],
+                                            );
+                                          }).toList(),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 5.w,
-                                  ),
+                                  SizedBox(width: 5.w),
                                   Expanded(
                                     flex: 2,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text('Sous-categories',
+                                        Text('Sous-catégorie',
                                             style: TextStyle(fontSize: 16.sp)),
                                         DropdownButton2<String>(
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall!
-                                                  .color,
-                                              fontSize: 14.sp),
                                           buttonStyleData: ButtonStyleData(
                                             width: 0.66.sw,
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 8.w),
                                             decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Color(0xFF7B61FF))),
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  color: Color(0xFF7B61FF)),
+                                            ),
                                             elevation: 2,
                                           ),
                                           iconStyleData: IconStyleData(
-                                            icon: Icon(Icons.arrow_drop_down,
-                                                color: Colors.grey.shade600),
+                                            icon: Icon(
+                                              Icons.arrow_drop_down,
+                                              color: Colors.grey.shade600,
+                                            ),
                                           ),
                                           dropdownStyleData: DropdownStyleData(
                                             padding: EdgeInsets.symmetric(
@@ -198,30 +200,42 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 14.w),
                                           ),
-                                          value: "Simple",
-                                          onChanged: (value) {},
-                                          items: [
-                                            const DropdownMenuItem(
-                                              value:
-                                                  'Simple', // Ensure this value matches DropdownButton2's value
-                                              child: const Text(
-                                                'Simple', // Display text for the menu item
-                                                style: TextStyle(
-                                                    color: Colors
-                                                        .black), // Adjust text style as needed
-                                              ),
-                                            ),
-                                            const DropdownMenuItem(
-                                              value:
-                                                  'Other', // Example of another item
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .color,
+                                          ),
+                                          value: selectedSubCategoryID,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedSubCategoryID =
+                                                  value ?? "";
+                                            });
+                                          },
+                                          items: _categories
+                                              .firstWhere(
+                                                  (category) =>
+                                                      category.id ==
+                                                      selectedCategoryID,
+                                                  orElse: () => CategoryModel(
+                                                      subCategories: [],
+                                                      name: '',
+                                                      createdAt: '',
+                                                      updatedAt: ''))
+                                              .subCategories
+                                              .map((subCategory) {
+                                            return DropdownMenuItem(
+                                              value: subCategory
+                                                  .id, // Utilisez l'id comme valeur
                                               child: Text(
-                                                'Other', // Display text for the other menu item
+                                                subCategory.name,
                                                 style: TextStyle(
-                                                    color: Colors
-                                                        .black), // Adjust text style as needed
+                                                    color: Colors.black),
                                               ),
-                                            ),
-                                          ],
+                                            );
+                                          }).toList(),
                                         ),
                                       ],
                                     ),
@@ -332,5 +346,40 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
             ),
           );
         }));
+  }
+
+  Future<void> _initOperationItems() async {
+    try {
+      final data = await locator<ProductRepository>().getAllCategories();
+
+      setState(() {
+        _categories = List<CategoryModel>.from(data.map(
+          (item) => CategoryModel(
+            id: item["id"]!,
+            name: item["name"]!,
+            createdAt: item["createdAt"]!,
+            updatedAt: item["updatedAt"]!,
+            subCategories: (item["subCategories"]! as List<dynamic>)
+                .map(
+                  (subItem) => SubCategoryModel(
+                    id: subItem["id"]!,
+                    name: subItem["name"]!,
+                    createdAt: subItem["createdAt"]!,
+                    updatedAt: subItem["updatedAt"]!,
+                  ),
+                )
+                .toList(),
+          ),
+        ));
+
+        selectedCategoryName = _categories[0].name;
+        selectedCategoryID = _categories[0].id!.replaceAll("category_", "");
+        selectedSubCategoryID =
+            _categories[0].subCategories[0].id!.replaceAll("category_", "");
+        selectedSubCategoryName = _categories[0].subCategories[0].name;
+      });
+    } catch (e) {
+      logger.e(e);
+    }
   }
 }

@@ -21,14 +21,14 @@ class FlashSale extends StatelessWidget {
         // const BannerMWithCounterSkelton(),
         BannerMWithCounter(
           duration: const Duration(hours: 8),
-          text: "Super Flash Sale \n50% Off",
+          text: "Vente Super Flash  \n50% Off",
           press: () {},
         ),
         const SizedBox(height: defaultPadding / 2),
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Text(
-            "Flash sale",
+            "Vente Flash",
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
@@ -48,13 +48,9 @@ class FlashSale extends StatelessWidget {
                     : 0,
               ),
               child: ProductCard(
-                image: demoFlashSaleProducts[index].image,
-                brandName: demoFlashSaleProducts[index].brandName,
+                imagesUrl: demoFlashSaleProducts[index].image,
                 title: demoFlashSaleProducts[index].title,
                 price: demoFlashSaleProducts[index].price,
-                priceAfetDiscount:
-                    demoFlashSaleProducts[index].priceAfetDiscount,
-                dicountpercent: demoFlashSaleProducts[index].dicountpercent,
                 press: () {
                   locator<NavigationService>().navigateTo(
                       ProductDetailsScreen.routeName,

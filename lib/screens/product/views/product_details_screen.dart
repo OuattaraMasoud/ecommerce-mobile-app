@@ -75,15 +75,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               rating: 4.4,
               numOfReviews: 126,
             ),
-            ProductListTile(
-              svgSrc: "assets/icons/Product.svg",
-              title: "Détails du produit",
-              press: () {
-                customModalBottomSheet(context,
-                    height: MediaQuery.of(context).size.height * 0.92,
-                    child: Container());
-              },
-            ),
+
             ProductListTile(
               svgSrc: "assets/icons/Delivery.svg",
               title: "Informations sur votre achat",
@@ -150,12 +142,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         left: defaultPadding,
                         right: index == 4 ? defaultPadding : 0),
                     child: ProductCard(
-                      image: productDemoImg2,
+                      imagesUrl: productDemoImg2,
                       title: "Sleeveless Tiered Dobby Swing Dress",
-                      brandName: "LIPSY LONDON",
                       price: 24.65,
-                      priceAfetDiscount: index.isEven ? 20.99 : null,
-                      dicountpercent: index.isEven ? 25 : null,
                       press: () {},
                     ),
                   ),

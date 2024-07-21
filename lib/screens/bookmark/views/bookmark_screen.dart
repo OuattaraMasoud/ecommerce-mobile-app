@@ -30,13 +30,9 @@ class BookmarkScreen extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   return ProductCard(
-                    image: demoPopularProducts[index].image,
-                    brandName: demoPopularProducts[index].brandName,
+                    imagesUrl: demoPopularProducts[index].image,
                     title: demoPopularProducts[index].title,
                     price: demoPopularProducts[index].price,
-                    priceAfetDiscount:
-                        demoPopularProducts[index].priceAfetDiscount,
-                    dicountpercent: demoPopularProducts[index].dicountpercent,
                     press: () {
                       locator<NavigationService>()
                           .navigateTo(ProductDetailsScreen.routeName);

@@ -78,6 +78,97 @@ class ProductRepository {
     }
   }
 
+  Future<dynamic> createCategory(Map<String, dynamic> data) async {
+    try {
+      initializeDioClient();
+      final response = await _dioClient.post(
+        '${locator<LocalStorageService>().apiBaseUrl}categories/create-category',
+        data: {
+          "name": data["name"],
+        },
+      );
+
+      if (response.statusCode == 201) {
+        NotificationService.notify("${response.data}",
+            textStyle: TextStyle(color: Colors.green));
+        locator<NavigationService>().pop();
+      }
+
+      return response.statusCode;
+    } on DioException catch (e) {
+      logger.e(e);
+      NotificationService.notify("${jsonDecode(e.response?.data)['message']}",
+          textStyle: TextStyle(color: Colors.red));
+
+      throw Exception('Login failed: ${e.message}');
+    } catch (e) {
+      logger.e(e);
+      throw Exception('An unexpected error occurred: ${e.toString()}');
+    } finally {
+      locator<GlobalAppCubit>().stopLoading();
+    }
+  }
+
+  Future<dynamic> createSubCategory(Map<String, dynamic> data) async {
+    try {
+      initializeDioClient();
+      final response = await _dioClient.post(
+        '${locator<LocalStorageService>().apiBaseUrl}subCategories/create-subcategory',
+        data: {
+          "name": data["name"],
+          "categoryId": data["categoryId"],
+        },
+      );
+
+      if (response.statusCode == 201) {
+        NotificationService.notify("${response.data}",
+            textStyle: TextStyle(color: Colors.green));
+        locator<NavigationService>().pop();
+      }
+
+      return response.statusCode;
+    } on DioException catch (e) {
+      logger.e(e);
+      NotificationService.notify("${jsonDecode(e.response?.data)['message']}",
+          textStyle: TextStyle(color: Colors.red));
+
+      throw Exception('Login failed: ${e.message}');
+    } catch (e) {
+      logger.e(e);
+      throw Exception('An unexpected error occurred: ${e.toString()}');
+    } finally {
+      locator<GlobalAppCubit>().stopLoading();
+    }
+  }
+
+  Future<dynamic> getAllCategories() async {
+    try {
+      initializeDioClient();
+      final response = await _dioClient.get(
+        '${locator<LocalStorageService>().apiBaseUrl}categories/find-all-categories',
+      );
+
+      if (response.statusCode == 201) {
+        NotificationService.notify("${response.data}",
+            textStyle: TextStyle(color: Colors.green));
+        locator<NavigationService>().pop();
+      }
+
+      return jsonDecode(response.data)["prismaCategories"];
+    } on DioException catch (e) {
+      logger.e(e);
+      NotificationService.notify("${jsonDecode(e.response?.data)['message']}",
+          textStyle: TextStyle(color: Colors.red));
+
+      throw Exception('Login failed: ${e.message}');
+    } catch (e) {
+      logger.e(e);
+      throw Exception('An unexpected error occurred: ${e.toString()}');
+    } finally {
+      locator<GlobalAppCubit>().stopLoading();
+    }
+  }
+
   Future<dynamic> registerUser(Map<String, dynamic> user) async {
     try {
       Options options = Options(
@@ -157,6 +248,29 @@ class ProductRepository {
       }
 
       return response.statusCode;
+    } on DioException catch (e) {
+      logger.e(e);
+      throw Exception('Registration failed: ${e.message}');
+    } catch (e) {
+      logger.e(e);
+      throw Exception('An unexpected error occurred: ${e.toString()}');
+    }
+  }
+
+  Future<dynamic> getAllAvaillableProducts() async {
+    try {
+      Options options = Options(
+        headers: {"Content-Type": "application/json"},
+      );
+
+      final response = await api.dio.get(
+        '${locator<LocalStorageService>().apiBaseUrl}products/find-all-products',
+        options: options,
+      );
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return jsonDecode(response.data)[
+            "rdfProducts"]; // Optionally, you can set user auth data here if needed
+      }
     } on DioException catch (e) {
       logger.e(e);
       throw Exception('Registration failed: ${e.message}');

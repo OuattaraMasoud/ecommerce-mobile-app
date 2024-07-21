@@ -20,7 +20,7 @@ class BestSellers extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Text(
-            "Best sellers",
+            "Les mieux vendus",
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
@@ -40,13 +40,9 @@ class BestSellers extends StatelessWidget {
                     : 0,
               ),
               child: ProductCard(
-                image: demoBestSellersProducts[index].image,
-                brandName: demoBestSellersProducts[index].brandName,
+                imagesUrl: demoBestSellersProducts[index].image,
                 title: demoBestSellersProducts[index].title,
                 price: demoBestSellersProducts[index].price,
-                priceAfetDiscount:
-                    demoBestSellersProducts[index].priceAfetDiscount,
-                dicountpercent: demoBestSellersProducts[index].dicountpercent,
                 press: () {
                   locator<NavigationService>().navigateTo(
                       ProductDetailsScreen.routeName,

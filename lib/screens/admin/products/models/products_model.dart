@@ -1,25 +1,29 @@
+import 'dart:ui';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'products_model.g.dart';
 
 @JsonSerializable()
 class ProductModel {
-  String? id;
-  String name;
-  String description;
-  double price;
+  String? productId;
+  String productName;
+  String imagesUrl;
+  String productDescription;
+  double productPrice;
   String? subCategoryId;
-  DateTime createdAt;
-  DateTime updatedAt;
+  DateTime productCreatedAt;
+  DateTime productUpdatedAt;
 
   ProductModel({
-    this.id,
-    required this.name,
-    required this.description,
-    required this.price,
+    this.productId,
+    required this.productName,
+    required this.imagesUrl,
+    required this.productDescription,
+    required this.productPrice,
     this.subCategoryId,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.productCreatedAt,
+    required this.productUpdatedAt,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
