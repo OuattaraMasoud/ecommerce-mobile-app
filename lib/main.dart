@@ -6,6 +6,7 @@ import 'package:e_commerce_project/router.dart';
 import 'package:e_commerce_project/screens/admin/repositories/product_repository.dart';
 import 'package:e_commerce_project/screens/auth/auth_bloc/auth_bloc.dart';
 import 'package:e_commerce_project/screens/onbording/views/views.dart';
+import 'package:e_commerce_project/screens/product_list/product_list_bloc/product_list_bloc.dart';
 import 'package:e_commerce_project/simple_bloc_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -95,6 +96,9 @@ class _EcommerceState extends State<EcommerceApp> {
 
               return authBloc;
             }),
+            BlocProvider<ProductListBloc>(
+              create: (context) => ProductListBloc(),
+            ),
             BlocProvider<GlobalAppCubit>(
               create: (context) {
                 return locator<GlobalAppCubit>();

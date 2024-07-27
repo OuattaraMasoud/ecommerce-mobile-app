@@ -27,11 +27,11 @@ class ItemsListWidget extends StatelessWidget {
                 title: demoPopularProducts[index].title,
                 price: demoPopularProducts[index].price,
                 press: () {
-                  locator<NavigationService>().navigateTo(
-                    ProductDetailsScreen.routeName,
-                    arguments:
-                        ProductDetailsScreenArgument(isProductAvailable: true),
-                  );
+                  // locator<NavigationService>().navigateTo(
+                  //   ProductDetailsScreen.routeName,
+                  //   arguments:
+                  //       ProductDetailsScreenArgument(isProductAvailable: true),
+                  // );
                 },
               );
             },

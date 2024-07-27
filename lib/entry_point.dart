@@ -2,9 +2,12 @@ import 'package:animations/animations.dart';
 import 'package:e_commerce_project/common/commons.dart';
 import 'package:e_commerce_project/constants.dart';
 import 'package:e_commerce_project/screens/notification/view/views.dart';
+import 'package:e_commerce_project/screens/product_list/product_list_bloc/product_list_bloc.dart';
+import 'package:e_commerce_project/screens/product_list/views/product_cart_list_page.dart';
 import 'package:e_commerce_project/screens/search/views/search_screen.dart';
 import 'package:e_commerce_project/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'screens/bookmark/views/views.dart';
@@ -57,22 +60,13 @@ class _EntryPointState extends State<EntryPoint> {
         actions: [
           IconButton(
             onPressed: () {
-              locator<NavigationService>().navigateTo(SearchScreen.routeName);
+              if (context.read<ProductListBloc>().state.products != null &&
+                  context.read<ProductListBloc>().state.products!.isNotEmpty) {
+                locator<NavigationService>()
+                    .navigateTo(ProductCartPage.routeName);
+              }
             },
-            icon: SvgPicture.asset(
-              "assets/icons/Search.svg",
-              height: 24,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              locator<NavigationService>()
-                  .navigateTo(NotificationsScreen.routeName);
-            },
-            icon: SvgPicture.asset(
-              "assets/icons/Notification.svg",
-              height: 24,
-            ),
+            icon: Icon(Icons.shopping_cart_checkout_outlined, size: 24),
           ),
         ],
       ),

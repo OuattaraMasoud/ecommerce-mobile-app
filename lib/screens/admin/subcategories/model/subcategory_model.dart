@@ -4,16 +4,16 @@ part 'subcategory_model.g.dart';
 
 @JsonSerializable()
 class SubCategoryModel {
-  String? id;
-  String name;
-  String createdAt;
-  String updatedAt;
+  String? subCategoryId;
+  String subCategoryName;
+  String subCategoryCreatedAt;
+  String subCategoryUpdatedAt;
 
   SubCategoryModel({
-    this.id,
-    required this.name,
-    required this.createdAt,
-    required this.updatedAt,
+    this.subCategoryId,
+    required this.subCategoryName,
+    required this.subCategoryCreatedAt,
+    required this.subCategoryUpdatedAt,
   });
 
   factory SubCategoryModel.fromJson(Map<String, dynamic> json) =>

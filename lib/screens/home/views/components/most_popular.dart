@@ -48,10 +48,10 @@ class MostPopular extends StatelessWidget {
                 priceAfetDiscount: demoPopularProducts[index].priceAfetDiscount,
                 dicountpercent: demoPopularProducts[index].dicountpercent,
                 press: () {
-                  locator<NavigationService>().navigateTo(
-                      ProductDetailsScreen.routeName,
-                      arguments: ProductDetailsScreenArgument(
-                          isProductAvailable: true));
+                  // locator<NavigationService>().navigateTo(
+                  //     ProductDetailsScreen.routeName,
+                  //     arguments: ProductDetailsScreenArgument(
+                  //         isProductAvailable: true));
                 },
               ),
             ),

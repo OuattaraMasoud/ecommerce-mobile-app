@@ -1,19 +1,22 @@
+import 'package:e_commerce_project/screens/admin/products/models/products_model.dart';
+import 'package:e_commerce_project/screens/product_list/product_list_bloc/product_list_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constants.dart';
 
 class CartButton extends StatelessWidget {
+  final ProductModel product;
   const CartButton({
+    required this.product,
     super.key,
     required this.price,
-    this.title = "Achetez maintenant",
+    this.title = "Ajouter au panier",
     this.subTitle = "Prix unitaire",
-    required this.press,
   });
 
   final double price;
   final String title, subTitle;
-  final VoidCallback press;
 
   @override
   Widget build(BuildContext context) {
@@ -31,38 +34,42 @@ class CartButton extends StatelessWidget {
                 Radius.circular(defaultBorderRadious),
               ),
             ),
-            child: InkWell(
-              onTap: press,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPadding),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${price.toStringAsFixed(2)} CFA",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(color: Colors.white),
-                          ),
-                          Text(
-                            subTitle,
-                            style: const TextStyle(
-                                color: Colors.white54,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      ),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: defaultPadding),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${price.toStringAsFixed(2)} CFA",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: Colors.white),
+                        ),
+                        Text(
+                          subTitle,
+                          style: const TextStyle(
+                              color: Colors.white54,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
                     ),
                   ),
-                  Expanded(
-                    flex: 3,
+                ),
+                Expanded(
+                  flex: 3,
+                  child: GestureDetector(
+                    onTap: () {
+                      context
+                          .read<ProductListBloc>()
+                          .add(AddProductToProductChartEvent(product: product));
+                    },
                     child: Container(
                       alignment: Alignment.center,
                       height: double.infinity,
@@ -76,8 +83,8 @@ class CartButton extends StatelessWidget {
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

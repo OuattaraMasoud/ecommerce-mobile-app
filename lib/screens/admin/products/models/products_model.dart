@@ -8,20 +8,25 @@ part 'products_model.g.dart';
 class ProductModel {
   String? productId;
   String productName;
+  String productBrand;
+  String categoryId;
+
   String imagesUrl;
   String productDescription;
   double productPrice;
-  String? subCategoryId;
+  String subCategoryId;
   DateTime productCreatedAt;
   DateTime productUpdatedAt;
 
   ProductModel({
     this.productId,
     required this.productName,
+    required this.productBrand,
+    required this.categoryId,
     required this.imagesUrl,
     required this.productDescription,
     required this.productPrice,
-    this.subCategoryId,
+    required this.subCategoryId,
     required this.productCreatedAt,
     required this.productUpdatedAt,
   });

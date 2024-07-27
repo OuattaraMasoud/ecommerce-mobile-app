@@ -4,7 +4,8 @@ import 'package:e_commerce_project/screens/admin/products/views/product_list_pag
 import 'package:e_commerce_project/screens/admin/subcategories/views/add_new_subCategory_page.dart';
 import 'package:e_commerce_project/screens/admin/views/views.dart';
 import 'package:e_commerce_project/screens/auth/views/views.dart';
-import 'package:e_commerce_project/screens/mens/views/views.dart';
+import 'package:e_commerce_project/screens/product_list/views/product_cart_list_page.dart';
+import 'package:e_commerce_project/screens/product_list/views/views.dart';
 import 'package:e_commerce_project/screens/product/views/view.dart';
 import 'package:e_commerce_project/screens/search/views/views.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +131,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ProductBuyNowScreen.routeName:
       return _getPageRoute(
           routeName: settings.name!,
-          viewToShow: const ProductBuyNowScreen(),
+          viewToShow: ProductBuyNowScreen(
+            productBuyNowScreenArguments:
+                settings.arguments as ProductBuyNowScreenArguments,
+          ),
           useDefaultPageRoute: true);
     case ProductDetailsScreen.routeName:
       return _getPageRoute(
@@ -174,10 +178,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           routeName: settings.name!,
           viewToShow: const ProductReviewsScreen(),
           useDefaultPageRoute: true);
-    case MensScreen.routeName:
+    case SaledProductListPage.routeName:
       return _getPageRoute(
           routeName: settings.name!,
-          viewToShow: const MensScreen(),
+          viewToShow: SaledProductListPage(
+            saledProductListPageArguments:
+                settings.arguments as SaledProductListPageArguments,
+          ),
           useDefaultPageRoute: true);
     case EntryPoint.routeName:
       return _getPageRoute(
@@ -218,6 +225,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name!,
         viewToShow: const AddNewSubCategoryPage(),
+        useDefaultPageRoute: true,
+      );
+    case ProductCartPage.routeName:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const ProductCartPage(),
         useDefaultPageRoute: true,
       );
 

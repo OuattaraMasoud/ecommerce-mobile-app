@@ -44,10 +44,10 @@ class BestSellers extends StatelessWidget {
                 title: demoBestSellersProducts[index].title,
                 price: demoBestSellersProducts[index].price,
                 press: () {
-                  locator<NavigationService>().navigateTo(
-                      ProductDetailsScreen.routeName,
-                      arguments: ProductDetailsScreenArgument(
-                          isProductAvailable: true));
+                  // locator<NavigationService>().navigateTo(
+                  //     ProductDetailsScreen.routeName,
+                  //     arguments: ProductDetailsScreenArgument(
+                  //         isProductAvailable: true));
                 },
               ),
             ),

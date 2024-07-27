@@ -69,13 +69,19 @@ final passwordValidator = MultiValidator([
 ]);
 
 final productNameValidator = MultiValidator([
-  RequiredValidator(errorText: 'Email is required'),
+  RequiredValidator(errorText: 'Name is required'),
 ]);
 final productPriceValidator = MultiValidator([
-  RequiredValidator(errorText: 'Email is required'),
+  RequiredValidator(errorText: 'price is required'),
 ]);
 final productDescriptionValidator = MultiValidator([
-  RequiredValidator(errorText: 'Email is required'),
+  RequiredValidator(errorText: 'Description is required'),
+]);
+final productBrandValidator = MultiValidator([
+  RequiredValidator(errorText: 'Brand is required'),
+]);
+final inputForSearchValidator = MultiValidator([
+  RequiredValidator(errorText: 'Input is required'),
 ]);
 
 final emaildValidator = MultiValidator([

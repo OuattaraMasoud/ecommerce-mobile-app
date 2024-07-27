@@ -115,6 +115,7 @@ class _ProductListPageState extends State<ProductListPage> {
                                 locator<NavigationService>().navigateTo(
                                   ProductDetailsScreen.routeName,
                                   arguments: ProductDetailsScreenArgument(
+                                      product: _productItems[index],
                                       isProductAvailable: true),
                                 );
                               },

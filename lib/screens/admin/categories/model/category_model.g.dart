@@ -8,20 +8,16 @@ part of 'category_model.dart';
 
 CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) =>
     CategoryModel(
-      id: json['id'] as String?,
-      subCategories: (json['subCategories'] as List<dynamic>)
-          .map((e) => SubCategoryModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      name: json['name'] as String,
-      createdAt: json['createdAt'] as String,
-      updatedAt: json['updatedAt'] as String,
+      categoryId: json['categoryId'] as String?,
+      categoryName: json['categoryName'] as String,
+      categoryCreatedAt: json['categoryCreatedAt'] as String,
+      categoryUpdatedAt: json['categoryUpdatedAt'] as String,
     );
 
 Map<String, dynamic> _$CategoryModelToJson(CategoryModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
-      'subCategories': instance.subCategories,
+      'categoryId': instance.categoryId,
+      'categoryName': instance.categoryName,
+      'categoryCreatedAt': instance.categoryCreatedAt,
+      'categoryUpdatedAt': instance.categoryUpdatedAt,
     };

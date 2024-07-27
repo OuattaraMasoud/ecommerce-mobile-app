@@ -30,7 +30,7 @@ class ProductCard extends StatelessWidget {
       child: Column(
         children: [
           AspectRatio(
-            aspectRatio: 1.15,
+            aspectRatio: 1.115,
             child: Stack(
               children: [
                 NetworkImageWithLoader(imagesUrl, radius: defaultBorderRadious),

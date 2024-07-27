@@ -1,5 +1,5 @@
 import 'package:e_commerce_project/screens/kids/views/views.dart';
-import 'package:e_commerce_project/screens/mens/views/men_screen.dart';
+import 'package:e_commerce_project/screens/product_list/views/product_list_screen.dart';
 import 'package:e_commerce_project/screens/on_sale/views/on_sale_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,11 +27,6 @@ List<CategoryModel> demoCategories = [
     name: "En vente",
     svgSrc: "assets/icons/Sale.svg",
     route: OnSaleScreen.routeName,
-  ),
-  CategoryModel(
-    name: "Hommes",
-    svgSrc: "assets/icons/Man.svg",
-    route: MensScreen.routeName,
   ),
   CategoryModel(
     name: "Femmes",
