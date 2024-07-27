@@ -51,6 +51,9 @@ class ProductRepository {
         '${locator<LocalStorageService>().apiBaseUrl}products/create-product',
         data: {
           "name": data["name"],
+          "categoryId": data["categoryId"],
+          "subCategoryId": data["subCategoryId"],
+          "brand": data["brand"],
           "description": data["description"],
           "price": data["price"].toDouble(),
           "imagesUrl": [data["imagesUrl"]],
@@ -70,6 +73,39 @@ class ProductRepository {
           textStyle: TextStyle(color: Colors.red));
 
       throw Exception('Login failed: ${e.message}');
+    } catch (e) {
+      logger.e(e);
+      throw Exception('An unexpected error occurred: ${e.toString()}');
+    } finally {
+      locator<GlobalAppCubit>().stopLoading();
+    }
+  }
+
+  Future<dynamic> createPurchase(Map<String, dynamic> data) async {
+    try {
+      initializeDioClient();
+      final response = await _dioClient.post(
+        '${locator<LocalStorageService>().apiBaseUrl}purchases/create-purchase',
+        data: {
+          "userId": data["userId"],
+          "totalPrice": data["totalPrice"].toDouble(),
+          "productIds": data["products"]
+        },
+      );
+
+      if (response.statusCode == 201) {
+        NotificationService.notify("${response.data}",
+            textStyle: TextStyle(color: Colors.green));
+        locator<NavigationService>().pop();
+      }
+
+      return response.statusCode;
+    } on DioException catch (e) {
+      logger.e(e);
+      NotificationService.notify("${jsonDecode(e.response?.data)['message']}",
+          textStyle: TextStyle(color: Colors.red));
+
+      throw Exception('Create failed: ${e.message}');
     } catch (e) {
       logger.e(e);
       throw Exception('An unexpected error occurred: ${e.toString()}');
@@ -116,7 +152,6 @@ class ProductRepository {
         '${locator<LocalStorageService>().apiBaseUrl}subCategories/create-subcategory',
         data: {
           "name": data["name"],
-          "categoryId": data["categoryId"],
         },
       );
 
@@ -154,7 +189,35 @@ class ProductRepository {
         locator<NavigationService>().pop();
       }
 
-      return jsonDecode(response.data)["prismaCategories"];
+      return jsonDecode(response.data)["rdfCategories"];
+    } on DioException catch (e) {
+      logger.e(e);
+      NotificationService.notify("${jsonDecode(e.response?.data)['message']}",
+          textStyle: TextStyle(color: Colors.red));
+
+      throw Exception('Login failed: ${e.message}');
+    } catch (e) {
+      logger.e(e);
+      throw Exception('An unexpected error occurred: ${e.toString()}');
+    } finally {
+      locator<GlobalAppCubit>().stopLoading();
+    }
+  }
+
+  Future<dynamic> getAllSubCategories() async {
+    try {
+      initializeDioClient();
+      final response = await _dioClient.get(
+        '${locator<LocalStorageService>().apiBaseUrl}subCategories/find-all-subcategories',
+      );
+
+      if (response.statusCode == 201) {
+        NotificationService.notify("${response.data}",
+            textStyle: TextStyle(color: Colors.green));
+        locator<NavigationService>().pop();
+      }
+
+      return jsonDecode(response.data)["rdfSubCategories"];
     } on DioException catch (e) {
       logger.e(e);
       NotificationService.notify("${jsonDecode(e.response?.data)['message']}",
@@ -274,6 +337,133 @@ class ProductRepository {
     } on DioException catch (e) {
       logger.e(e);
       throw Exception('Registration failed: ${e.message}');
+    } catch (e) {
+      logger.e(e);
+      throw Exception('An unexpected error occurred: ${e.toString()}');
+    }
+  }
+
+  Future<dynamic> getRecentProducts() async {
+    try {
+      Options options = Options(
+        headers: {"Content-Type": "application/json"},
+      );
+
+      final response = await api.dio.get(
+        '${locator<LocalStorageService>().apiBaseUrl}products/find-recent-products',
+        options: options,
+      );
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return jsonDecode(response.data)[
+            "rdfProducts"]; // Optionally, you can set user auth data here if needed
+      }
+    } on DioException catch (e) {
+      logger.e(e);
+      throw Exception('Registration failed: ${e.message}');
+    } catch (e) {
+      logger.e(e);
+      throw Exception('An unexpected error occurred: ${e.toString()}');
+    }
+  }
+
+  Future<dynamic> getRecommandedProducts(String userId) async {
+    try {
+      Options options = Options(
+        headers: {"Content-Type": "application/json"},
+      );
+
+      final response = await api.dio.get(
+        '${locator<LocalStorageService>().apiBaseUrl}products/find-recommanded-products',
+        queryParameters: {"userId": userId},
+        options: options,
+      );
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return jsonDecode(response
+            .data); // Optionally, you can set user auth data here if needed
+      }
+    } on DioException catch (e) {
+      logger.e(e);
+      throw Exception('Registration failed: ${e.message}');
+    } catch (e) {
+      logger.e(e);
+      throw Exception('An unexpected error occurred: ${e.toString()}');
+    }
+  }
+
+  Future<dynamic> getAllProductsByCriteria(
+      String categoryId, String subCategoryId) async {
+    try {
+      Options options = Options(
+        headers: {"Content-Type": "application/json"},
+      );
+
+      final response = await api.dio.get(
+        '${locator<LocalStorageService>().apiBaseUrl}products/find-products-by-criteria',
+        options: options,
+        queryParameters: {
+          "categoryId": categoryId,
+          "subCategoryId": subCategoryId
+        },
+      );
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return jsonDecode(response.data)[
+            "rdfProducts"]; // Optionally, you can set user auth data here if needed
+      }
+    } on DioException catch (e) {
+      logger.e(e);
+      throw Exception('Registration failed: ${e.message}');
+    } catch (e) {
+      logger.e(e);
+      throw Exception('An unexpected error occurred: ${e.toString()}');
+    }
+  }
+
+  Future<dynamic> getAllProductsByCategory(String categoryId) async {
+    try {
+      Options options = Options(
+        headers: {"Content-Type": "application/json"},
+      );
+
+      final response = await api.dio.get(
+        '${locator<LocalStorageService>().apiBaseUrl}products/find-products-by-category',
+        options: options,
+        queryParameters: {
+          "categoryId": categoryId,
+        },
+      );
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return jsonDecode(response.data)[
+            "rdfProducts"]; // Optionally, you can set user auth data here if needed
+      }
+    } on DioException catch (e) {
+      logger.e(e);
+      throw Exception('Registration failed: ${e.message}');
+    } catch (e) {
+      logger.e(e);
+      throw Exception('An unexpected error occurred: ${e.toString()}');
+    }
+  }
+
+  Future<dynamic> searchProductsByCategory(String input) async {
+    try {
+      Options options = Options(
+        headers: {"Content-Type": "application/json"},
+      );
+
+      final response = await api.dio.get(
+        '${locator<LocalStorageService>().apiBaseUrl}products/user-find-products-by-criteria',
+        options: options,
+        queryParameters: {
+          "input": input,
+        },
+      );
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return jsonDecode(response.data)[
+            "rdfProducts"]; // Optionally, you can set user auth data here if needed
+      }
+    } on DioException catch (e) {
+      logger.e(e);
+      throw Exception('Fetch failed: ${e.message}');
     } catch (e) {
       logger.e(e);
       throw Exception('An unexpected error occurred: ${e.toString()}');

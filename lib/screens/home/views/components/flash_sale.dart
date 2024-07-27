@@ -52,10 +52,10 @@ class FlashSale extends StatelessWidget {
                 title: demoFlashSaleProducts[index].title,
                 price: demoFlashSaleProducts[index].price,
                 press: () {
-                  locator<NavigationService>().navigateTo(
-                      ProductDetailsScreen.routeName,
-                      arguments: ProductDetailsScreenArgument(
-                          isProductAvailable: true));
+                  // locator<NavigationService>().navigateTo(
+                  //     ProductDetailsScreen.routeName,
+                  //     arguments: ProductDetailsScreenArgument(
+                  //         isProductAvailable: true));
                 },
               ),
             ),

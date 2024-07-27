@@ -1,6 +1,7 @@
 import 'package:e_commerce_project/components/components.dart';
 import 'package:e_commerce_project/components/product/product_card.dart';
 import 'package:e_commerce_project/constants.dart';
+import 'package:e_commerce_project/screens/admin/products/models/products_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -12,7 +13,9 @@ import 'product_buy_now_screen.dart';
 
 class ProductDetailsScreenArgument {
   final bool isProductAvailable;
-  ProductDetailsScreenArgument({required this.isProductAvailable});
+  final ProductModel product;
+  ProductDetailsScreenArgument(
+      {required this.isProductAvailable, required this.product});
 }
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -30,25 +33,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:
-          widget.productDetailsScreenArgument.isProductAvailable
-              ? CartButton(
-                  price: 140,
-                  press: () {
-                    customModalBottomSheet(
-                      context,
-                      height: MediaQuery.of(context).size.height * 0.92,
-                      child: const ProductBuyNowScreen(),
-                    );
-                  },
-                )
-              :
+      bottomNavigationBar: widget
+              .productDetailsScreenArgument.isProductAvailable
+          ? CartButton(
+              product: widget.productDetailsScreenArgument.product,
+              price: widget.productDetailsScreenArgument.product.productPrice,
+            )
+          :
 
-              /// If profuct is not available then show [NotifyMeCard]
-              NotifyMeCard(
-                  isNotify: false,
-                  onChanged: (value) {},
-                ),
+          /// If profuct is not available then show [NotifyMeCard]
+          NotifyMeCard(
+              isNotify: false,
+              onChanged: (value) {},
+            ),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -63,17 +60,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ],
             ),
-            const ProductImages(
-              images: [productDemoImg1, productDemoImg2, productDemoImg3],
+            ProductImages(
+              images: [
+                widget.productDetailsScreenArgument.product.imagesUrl,
+                widget.productDetailsScreenArgument.product.imagesUrl,
+                widget.productDetailsScreenArgument.product.imagesUrl
+              ],
             ),
-            const ProductInfo(
-              brand: "LIPSY LONDON",
-              title: "Sleeveless Ruffle",
+            ProductInfo(
+              brand: widget.productDetailsScreenArgument.product.productBrand,
+              title: widget.productDetailsScreenArgument.product.productName,
               isAvailable: true,
-              description:
-                  "Un pull-over gris cool en velours côtelé doux. Regarde moi.' En achetant des produits en coton chez Lindex, vous soutenez de manière plus responsable...",
+              description: widget
+                  .productDetailsScreenArgument.product.productDescription,
               rating: 4.4,
-              numOfReviews: 126,
+              numOfReviews: 3,
             ),
 
             ProductListTile(
@@ -104,12 +105,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 padding: EdgeInsets.all(defaultPadding),
                 child: ReviewCard(
                   rating: 4.3,
-                  numOfReviews: 128,
-                  numOfFiveStar: 80,
-                  numOfFourStar: 30,
-                  numOfThreeStar: 5,
-                  numOfTwoStar: 4,
-                  numOfOneStar: 1,
+                  numOfReviews: 3,
+                  numOfFiveStar: 2,
+                  numOfFourStar: 1,
+                  numOfThreeStar: 0,
+                  numOfTwoStar: 0,
+                  numOfOneStar: 0,
                 ),
               ),
             ),
@@ -122,35 +123,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 //     .navigateTo(ProductReviewsScreen.routeName);
               },
             ),
-            SliverPadding(
-              padding: const EdgeInsets.all(defaultPadding),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  "Recommandations",
-                  style: Theme.of(context).textTheme.titleSmall!,
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 220,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.only(
-                        left: defaultPadding,
-                        right: index == 4 ? defaultPadding : 0),
-                    child: ProductCard(
-                      imagesUrl: productDemoImg2,
-                      title: "Sleeveless Tiered Dobby Swing Dress",
-                      price: 24.65,
-                      press: () {},
-                    ),
-                  ),
-                ),
-              ),
-            ),
+
             const SliverToBoxAdapter(
               child: SizedBox(height: defaultPadding),
             )

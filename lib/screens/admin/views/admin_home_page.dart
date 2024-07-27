@@ -4,8 +4,11 @@ import 'package:e_commerce_project/constants.dart';
 import 'package:e_commerce_project/screens/admin/categories/views/admin_add_category.dart';
 import 'package:e_commerce_project/screens/admin/products/views.dart';
 import 'package:e_commerce_project/screens/admin/subcategories/views/add_new_subCategory_page.dart';
+import 'package:e_commerce_project/screens/auth/auth_bloc/auth_bloc.dart';
 import 'package:e_commerce_project/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -32,12 +35,37 @@ class _AdminHomePageState extends State<AdminHomePage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(
-              "assets/icons/Notification.svg",
-              height: 24,
-            ),
-          ),
+            onPressed: () async {
+              var shouldLogout = await showPlatformDialog<bool>(
+                context: context,
+                builder: (_) => PlatformAlertDialog(
+                  title: const Text('Confirmation'),
+                  content: const Text(
+                      'Voulez vous vraiment vous déconnecter de Shoppy ?'),
+                  actions: <Widget>[
+                    PlatformDialogAction(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: const Text(
+                        'Non',
+                        style: TextStyle(color: Color(0xFF7B61FF)),
+                      ),
+                    ),
+                    PlatformDialogAction(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: const Text(
+                        'Se déconnecter',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+              if (shouldLogout != null && shouldLogout) {
+                context.read<AuthBloc>().add(const LogoutEvent());
+              }
+            },
+            icon: Icon(Icons.logout),
+          )
         ],
       ),
       body: Center(

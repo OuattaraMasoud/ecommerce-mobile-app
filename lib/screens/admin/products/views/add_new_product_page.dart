@@ -27,13 +27,15 @@ class AddNewProductPage extends StatefulWidget {
 
 class _AddNewProductPageState extends State<AddNewProductPage> {
   TextEditingController productNameController = TextEditingController();
+  TextEditingController productBrandController = TextEditingController();
   TextEditingController productDescriptionController = TextEditingController();
   TextEditingController productPriceController = TextEditingController();
   List<Widget> imageFormFields = [];
   List<CategoryModel> _categories = [];
-  String selectedSubCategoryName = "";
+  List<SubCategoryModel> _subCategories = [];
+  String selectedSubCategoryName = " ";
   String selectedCategoryName = "";
-  String selectedCategoryID = "";
+  String selectedCategoryID = " ";
   String selectedSubCategoryID = "";
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -135,20 +137,35 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                                 .bodySmall!
                                                 .color,
                                           ),
-                                          value: selectedCategoryID,
+                                          value: selectedCategoryName,
                                           onChanged: (value) {
                                             setState(() {
-                                              selectedCategoryID = value ?? "";
-                                              selectedSubCategoryID =
-                                                  ""; // Réinitialisez la sous-catégorie sélectionnée lorsque la catégorie change
+                                              selectedCategoryName =
+                                                  value ?? "";
+                                              CategoryModel selectedCategory =
+                                                  _categories.firstWhere(
+                                                (category) =>
+                                                    category.categoryName ==
+                                                    value,
+                                                orElse: () => CategoryModel(
+                                                    categoryId: "",
+                                                    categoryName: "",
+                                                    categoryCreatedAt: '',
+                                                    categoryUpdatedAt: ''),
+                                              );
+
+                                              // Mettez à jour selectedCategoryID avec l'ID trouvé
+                                              selectedCategoryID =
+                                                  selectedCategory.categoryId ??
+                                                      "";
                                             });
                                           },
                                           items: _categories.map((category) {
                                             return DropdownMenuItem(
                                               value: category
-                                                  .id, // Utilisez l'id comme valeur
+                                                  .categoryName, // Utilisez l'id comme valeur
                                               child: Text(
-                                                category.name,
+                                                category.categoryName,
                                                 style: TextStyle(
                                                     color: Colors.black),
                                               ),
@@ -207,30 +224,40 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                                 .bodySmall!
                                                 .color,
                                           ),
-                                          value: selectedSubCategoryID,
+                                          value: selectedSubCategoryName,
                                           onChanged: (value) {
                                             setState(() {
-                                              selectedSubCategoryID =
+                                              selectedSubCategoryName =
                                                   value ?? "";
+                                              // Recherchez l'objet SubCategoryModel correspondant
+                                              SubCategoryModel
+                                                  selectedSubCategory =
+                                                  _subCategories.firstWhere(
+                                                (subCategory) =>
+                                                    subCategory
+                                                        .subCategoryName ==
+                                                    value,
+                                                orElse: () => SubCategoryModel(
+                                                    subCategoryId: "",
+                                                    subCategoryName: "",
+                                                    subCategoryCreatedAt: '',
+                                                    subCategoryUpdatedAt: ''),
+                                              );
+
+                                              // Mettez à jour selectedSubCategoryID avec l'ID trouvé
+                                              selectedSubCategoryID =
+                                                  selectedSubCategory
+                                                          .subCategoryId ??
+                                                      "";
                                             });
                                           },
-                                          items: _categories
-                                              .firstWhere(
-                                                  (category) =>
-                                                      category.id ==
-                                                      selectedCategoryID,
-                                                  orElse: () => CategoryModel(
-                                                      subCategories: [],
-                                                      name: '',
-                                                      createdAt: '',
-                                                      updatedAt: ''))
-                                              .subCategories
-                                              .map((subCategory) {
+                                          items:
+                                              _subCategories.map((subCategory) {
                                             return DropdownMenuItem(
                                               value: subCategory
-                                                  .id, // Utilisez l'id comme valeur
+                                                  .subCategoryName, // Utilisez l'id comme valeur
                                               child: Text(
-                                                subCategory.name,
+                                                subCategory.subCategoryName,
                                                 style: TextStyle(
                                                     color: Colors.black),
                                               ),
@@ -253,6 +280,19 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                               keyboardType: TextInputType.text,
                               decoration: const InputDecoration(
                                 hintText: "Nom du produit",
+                              ),
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            TextFormField(
+                              controller: productBrandController,
+                              validator: productBrandValidator.call,
+                              onSaved: (name) {
+                                // Email
+                              },
+                              textInputAction: TextInputAction.next,
+                              keyboardType: TextInputType.text,
+                              decoration: const InputDecoration(
+                                hintText: "Marque du produit",
                               ),
                             ),
                             const SizedBox(height: defaultPadding),
@@ -292,7 +332,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                 validator: (value) => filePickerState
                                             .pickedImage ==
                                         null
-                                    ? 'Vous devez fournir une image de votre document.'
+                                    ? 'Vous devez ajouter une image au produits.'
                                     : null,
                                 onChanged: (image) => image != null
                                     ? context.read<FilePickerBloc>().add(
@@ -304,7 +344,9 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                             const SizedBox(height: defaultPadding),
                             ElevatedButton(
                               onPressed: () async {
-                                if (_formKey.currentState!.validate()) {
+                                if (_subCategories.isNotEmpty &&
+                                    _subCategories.isNotEmpty &&
+                                    _formKey.currentState!.validate()) {
                                   locator<GlobalAppCubit>().startLoading();
                                   try {
                                     var imageToUploadUrl =
@@ -315,7 +357,12 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                                         imageToUploadUrl.isNotEmpty) {
                                       await locator<ProductRepository>()
                                           .createProduct({
+                                        "categoryId": selectedCategoryID
+                                            .replaceAll("category_", ""),
+                                        "subCategoryId": selectedSubCategoryID
+                                            .replaceAll("subCategory_", ""),
                                         "name": productNameController.text,
+                                        "brand": productBrandController.text,
                                         "price": double.parse(
                                             productPriceController.text),
                                         "description":
@@ -350,33 +397,31 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
 
   Future<void> _initOperationItems() async {
     try {
-      final data = await locator<ProductRepository>().getAllCategories();
+      final categoriesData =
+          await locator<ProductRepository>().getAllCategories();
+      final subCategoriesData =
+          await locator<ProductRepository>().getAllSubCategories();
 
       setState(() {
-        _categories = List<CategoryModel>.from(data.map(
-          (item) => CategoryModel(
-            id: item["id"]!,
-            name: item["name"]!,
-            createdAt: item["createdAt"]!,
-            updatedAt: item["updatedAt"]!,
-            subCategories: (item["subCategories"]! as List<dynamic>)
-                .map(
-                  (subItem) => SubCategoryModel(
-                    id: subItem["id"]!,
-                    name: subItem["name"]!,
-                    createdAt: subItem["createdAt"]!,
-                    updatedAt: subItem["updatedAt"]!,
-                  ),
-                )
-                .toList(),
-          ),
-        ));
+        _categories =
+            List<Map<String, dynamic>>.from(categoriesData).map((category) {
+          return CategoryModel.fromJson(category);
+        }).toList();
 
-        selectedCategoryName = _categories[0].name;
-        selectedCategoryID = _categories[0].id!.replaceAll("category_", "");
-        selectedSubCategoryID =
-            _categories[0].subCategories[0].id!.replaceAll("category_", "");
-        selectedSubCategoryName = _categories[0].subCategories[0].name;
+        _subCategories = List<Map<String, dynamic>>.from(subCategoriesData)
+            .map((subCategory) {
+          return SubCategoryModel.fromJson(subCategory);
+        }).toList();
+
+        if (_subCategories.isNotEmpty && _subCategories.isNotEmpty) {
+          selectedCategoryName = _categories[0].categoryName;
+          selectedCategoryID =
+              _categories[0].categoryId!.replaceAll("category_", "");
+
+          selectedSubCategoryID =
+              _subCategories[0].subCategoryId!.replaceAll("subCategory_", "");
+          selectedSubCategoryName = _subCategories[0].subCategoryName;
+        }
       });
     } catch (e) {
       logger.e(e);

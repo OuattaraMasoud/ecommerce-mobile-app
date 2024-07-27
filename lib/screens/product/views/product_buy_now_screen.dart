@@ -1,6 +1,9 @@
 import 'package:e_commerce_project/components/components.dart';
+import 'package:e_commerce_project/screens/admin/products/models/products_model.dart';
 import 'package:e_commerce_project/screens/product/components/product_list_tile.dart';
+import 'package:e_commerce_project/screens/product_list/product_list_bloc/product_list_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
@@ -10,10 +13,17 @@ import '../components/selected_size.dart';
 import '../components/unit_price.dart';
 import 'view.dart';
 
+class ProductBuyNowScreenArguments {
+  final ProductModel product;
+  const ProductBuyNowScreenArguments({required this.product});
+}
+
 class ProductBuyNowScreen extends StatefulWidget {
   static const routeName = 'ProductBuyNowScreenView';
+  final ProductBuyNowScreenArguments productBuyNowScreenArguments;
 
-  const ProductBuyNowScreen({super.key});
+  const ProductBuyNowScreen(
+      {super.key, required this.productBuyNowScreenArguments});
 
   @override
   _ProductBuyNowScreenState createState() => _ProductBuyNowScreenState();
@@ -24,16 +34,11 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CartButton(
-        price: 269.4,
-        title: "Add to cart",
-        subTitle: "Total price",
-        press: () {
-          customModalBottomSheet(
-            context,
-            isDismissible: false,
-            child: const AddedToCartMessageScreen(),
-          );
-        },
+        product: widget.productBuyNowScreenArguments.product,
+        price: widget.productBuyNowScreenArguments.product.productPrice,
+        title: widget.productBuyNowScreenArguments.product.productName,
+        subTitle:
+            widget.productBuyNowScreenArguments.product.productDescription,
       ),
       body: Column(
         children: [
@@ -45,7 +50,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
               children: [
                 const BackButton(),
                 Text(
-                  "Sleeveless Ruffle",
+                  widget.productBuyNowScreenArguments.product.productBrand,
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 IconButton(
@@ -59,12 +64,13 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
           Expanded(
             child: CustomScrollView(
               slivers: [
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: defaultPadding),
                     child: AspectRatio(
                       aspectRatio: 1.05,
-                      child: NetworkImageWithLoader(productDemoImg1),
+                      child: NetworkImageWithLoader(widget
+                          .productBuyNowScreenArguments.product.imagesUrl),
                     ),
                   ),
                 ),
@@ -74,14 +80,17 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: UnitPrice(
-                            price: 145,
-                            priceAfterDiscount: 134.7,
+                            price: 500,
+                            priceAfterDiscount: widget
+                                .productBuyNowScreenArguments
+                                .product
+                                .productPrice,
                           ),
                         ),
                         ProductQuantity(
-                          numOfItem: 2,
+                          numOfItem: 1,
                           onIncrement: () {},
                           onDecrement: () {},
                         ),
