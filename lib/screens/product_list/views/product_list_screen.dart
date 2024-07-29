@@ -427,8 +427,17 @@ class _SaledProductListPageState extends State<SaledProductListPage> {
 
       setState(() {
         _productItems = List<ProductModel>.from(
-          productsData.map(
-              (item) => ProductModel.fromJson(item as Map<String, dynamic>)),
+          productsData.map((item) => ProductModel(
+              categoryId: item['categoryId'],
+              productId: item['productId'].replaceAll("product_", ""),
+              productName: item['productName'],
+              productBrand: item['productBrand'],
+              imagesUrl: item['imagesUrl'],
+              productDescription: item['productDescription'],
+              productPrice: item["productPrice"].toDouble(),
+              subCategoryId: item['subCategoryId'],
+              productCreatedAt: DateTime.parse(item['productCreatedAt']),
+              productUpdatedAt: DateTime.parse(item['productUpdatedAt']))),
         );
       });
     } catch (e) {

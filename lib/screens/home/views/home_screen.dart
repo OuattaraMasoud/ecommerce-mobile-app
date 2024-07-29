@@ -134,6 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
               categoryId: item['categoryId'],
               productName: item['name'],
               productBrand: item['brand'],
+              productId: item['id'].replaceAll("product_", ""),
               imagesUrl: item['imagesUrl'][0],
               productDescription: item['description'],
               productPrice: item["price"].toDouble(),
@@ -154,8 +155,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
       setState(() {
         _recentProductItems = List<products.ProductModel>.from(
-          productsData.map((item) =>
-              products.ProductModel.fromJson(item as Map<String, dynamic>)),
+          productsData.map((item) => ProductModel(
+              categoryId: item['categoryId'],
+              productId: item['productId'].replaceAll("product_", ""),
+              productName: item['productName'],
+              productBrand: item['productBrand'],
+              imagesUrl: item['imagesUrl'],
+              productDescription: item['productDescription'],
+              productPrice: item["productPrice"].toDouble(),
+              subCategoryId: item['subCategoryId'],
+              productCreatedAt: DateTime.parse(item['productCreatedAt']),
+              productUpdatedAt: DateTime.parse(item['productUpdatedAt']))),
         );
       });
     } catch (e) {
