@@ -31,7 +31,7 @@ class LocalStorageService {
     return _instance!;
   }
 
-  String get apiBaseUrl => 'http://192.168.0.184:3000/';
+  String get apiBaseUrl => 'https://066e-102-180-187-59.ngrok-free.app/';
 
   // Initial/First launch setup done
   bool get firstLaunchSetupDone =>

@@ -2,7 +2,9 @@ import 'package:e_commerce_project/components/components.dart';
 import 'package:e_commerce_project/components/product/product_card.dart';
 import 'package:e_commerce_project/constants.dart';
 import 'package:e_commerce_project/screens/admin/products/models/products_model.dart';
+import 'package:e_commerce_project/screens/auth/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../components/notify_me_card.dart';
@@ -33,8 +35,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: widget
-              .productDetailsScreenArgument.isProductAvailable
+      bottomNavigationBar: (widget
+                  .productDetailsScreenArgument.isProductAvailable &&
+              !context.read<AuthBloc>().state.user!.role!.contains("ADMIN"))
           ? CartButton(
               product: widget.productDetailsScreenArgument.product,
               price: widget.productDetailsScreenArgument.product.productPrice,
